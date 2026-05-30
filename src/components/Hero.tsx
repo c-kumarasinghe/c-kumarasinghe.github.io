@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { personalInfo, heroBadges } from '../data/portfolioData';
@@ -41,55 +40,6 @@ function FloatingCode({ text, style }: { text: string; style: React.CSSPropertie
   );
 }
 
-function TerminalBoot() {
-  const cmds = [
-    { prompt: '$', text: ' npm run start', color: 'text-white/70' },
-    { prompt: '▶', text: ' NestJS listening :3000', color: 'text-green-400' },
-    { prompt: '▶', text: ' WebSocket server ready', color: 'text-green-400' },
-    { prompt: '▶', text: ' BullMQ workers ×8 active', color: 'text-cyan-400' },
-  ];
-  const [step, setStep] = useState(0);
-
-  useEffect(() => {
-    if (step >= cmds.length) return;
-    const t = setTimeout(() => setStep((s) => s + 1), step === 0 ? 200 : 650);
-    return () => clearTimeout(t);
-  }, [step, cmds.length]);
-
-  return (
-    <div className="inline-block rounded-xl overflow-hidden border border-white/10 bg-[#0a0e1a]/90 backdrop-blur-sm shadow-2xl">
-      <div className="terminal-header py-2">
-        <span className="terminal-dot bg-red-500" />
-        <span className="terminal-dot bg-yellow-400" />
-        <span className="terminal-dot bg-green-500" />
-        <span className="ml-2 text-xs text-white/30 font-mono">server.log</span>
-      </div>
-      <div className="px-4 py-3 font-mono text-xs space-y-1 min-w-[260px]">
-        {cmds.slice(0, step).map((c, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -6 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
-          >
-            <span className={i === 0 ? 'text-indigo-400' : 'text-white/30'}>{c.prompt}</span>
-            <span className={c.color}>{c.text}</span>
-          </motion.div>
-        ))}
-        {step < cmds.length && (
-          <div className="flex items-center gap-2">
-            <span className="text-indigo-400">$</span>
-            <motion.span
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 0.8, repeat: Infinity }}
-              className="text-white/50"
-            >▌</motion.span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 // Animated SVG network lines in background
 function NetworkLines() {
@@ -146,7 +96,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative flex items-center justify-center overflow-hidden"
     >
       {/* Animated grid */}
       <motion.div
@@ -177,20 +127,16 @@ export default function Hero() {
         className="absolute bottom-1/4 -right-20 w-[450px] h-[450px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none"
       />
 
-      <div className="relative z-10 container-max section-padding w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+      <div className="relative z-10 container-max px-4 sm:px-6 lg:px-8 pt-16 pb-2 lg:pt-24 lg:pb-8 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 w-full">
 
           {/* ── Left ── */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex-1 flex flex-col gap-6 text-center lg:text-left max-w-2xl"
+            className="flex-1 flex flex-col gap-6 text-center lg:text-left max-w-2xl w-full min-w-0"
           >
-            <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
-              <TerminalBoot />
-            </motion.div>
-
             <motion.div variants={itemVariants}>
               <p className="text-white/40 font-mono text-xs sm:text-sm tracking-widest uppercase mb-3">
                 Hello, World —
@@ -226,6 +172,42 @@ export default function Hero() {
                   transition={{ duration: 0.8, repeat: Infinity }}
                   className="ml-0.5 text-indigo-400"
                 >|</motion.span>
+              </div>
+            </motion.div>
+
+            {/* Mobile-only profile image */}
+            <motion.div variants={itemVariants} className="flex justify-center lg:hidden">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56">
+                <div
+                  className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-blue-500 p-[3px]"
+                  style={{ boxShadow: '0 0 40px rgba(99,102,241,0.25)' }}
+                >
+                  <div className="w-full h-full rounded-full overflow-hidden bg-[#0d1117]">
+                    <img
+                      src="/profile.jpg"
+                      alt="Chathuranga Kumarasinghe"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: 'center 30%', transform: 'translateZ(0)' }}
+                    />
+                  </div>
+                </div>
+
+                {[
+                  { label: '11+ yrs', sub: 'Experience', cls: 'absolute -left-16 top-4' },
+                  { label: '15+', sub: 'Team Size', cls: 'absolute -right-14 top-10' },
+                  { label: '20+', sub: 'Projects', cls: 'absolute -left-12 bottom-8' },
+                ].map((card, i) => (
+                  <motion.div
+                    key={card.sub}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9 + i * 0.2, type: 'spring', stiffness: 200 }}
+                    className={`${card.cls} glass-card px-2 py-1 text-center min-w-[54px] cursor-default`}
+                  >
+                    <div className="text-xs font-bold gradient-text">{card.label}</div>
+                    <div className="text-[10px] text-white/50">{card.sub}</div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
 
@@ -306,7 +288,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.85, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative flex-shrink-0"
+            className="relative flex-shrink-0 hidden lg:block"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -358,34 +340,9 @@ export default function Hero() {
               ))}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.6 }}
-              className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 glass-card whitespace-nowrap border border-green-500/20"
-            >
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-xs font-mono text-green-400">Open to Opportunities</span>
-            </motion.div>
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
-        >
-          <span className="text-xs text-white/25 font-mono tracking-widest uppercase">scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
-            className="w-5 h-8 rounded-full border border-white/15 flex items-start justify-center pt-1.5"
-          >
-            <div className="w-1 h-2 bg-indigo-400/70 rounded-full" />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );

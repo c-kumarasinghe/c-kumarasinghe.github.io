@@ -146,16 +146,6 @@ export default function Skills() {
             })}
           </div>
 
-          {/* Bottom highlight */}
-          <motion.div variants={cardVariants} className="text-center">
-            <div className="inline-flex items-center gap-3 px-5 py-3 glass-card border border-white/5">
-              <span className="text-lg">💡</span>
-              <span className="text-sm text-white/60">
-                Always learning · Currently exploring{' '}
-                <span className="text-indigo-300 font-medium">Web3 & DeFi protocols</span>
-              </span>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

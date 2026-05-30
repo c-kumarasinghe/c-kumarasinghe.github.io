@@ -17,7 +17,7 @@ export interface ExperienceItem {
   location: string;
   period: string;
   current: boolean;
-  description: string[];
+  description: string;
   technologies: string[];
 }
 
@@ -39,6 +39,7 @@ export interface EducationItem {
   country: string;
   year: string;
   icon: string;
+  logo?: string;
 }
 
 export interface CertificationItem {
@@ -73,7 +74,7 @@ export const stats: StatItem[] = [
   { value: '11+', label: 'Years Experience', icon: '🚀' },
   { value: '15+', label: 'Team Members Led', icon: '👥' },
   { value: '20+', label: 'Projects Shipped', icon: '📦' },
-  { value: '3', label: 'Cloud Platforms', icon: '☁️' },
+  { value: '5+', label: 'Industry Domains', icon: '🌐' },
 ];
 
 // ── Skills ─────────────────────────────────────────────────
@@ -128,19 +129,16 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    id: 'cloud',
-    label: 'Cloud & DevOps',
-    icon: '☁️',
+    id: 'domains',
+    label: 'Industry Domains',
+    icon: '🌐',
     color: 'from-cyan-500/20 to-cyan-500/5',
     skills: [
-      'Microsoft Azure',
-      'AWS',
-      'Google Cloud',
-      'Docker',
-      'Rancher',
-      'GitLab CI/CD',
-      'GitHub Actions',
-      'Bitbucket',
+      'HR & Workforce Management',
+      'ERP & Enterprise Systems',
+      'Healthcare & Clinic Management',
+      'Blockchain & DeFi',
+      'E-commerce & Retail',
     ],
   },
   {
@@ -186,12 +184,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Business Bay, Dubai, UAE',
     period: 'Aug 2024 – Present',
     current: true,
-    description: [
-      'Lead backend development for a blockchain-driven platform, designing scalable microservices and real-time systems using NestJS, Redis, RabbitMQ, and Socket.IO.',
-      'Built and maintain a BullMQ batch engine that reduces reward processing time by 65%.',
-      'Designed and implemented the DeFi360 backend, enabling staking, licensing, wallet integrations, and smart contract–based rewards.',
-      'Integrated PandaDoc for seamless onboarding workflows and managed secure CI/CD deployments.',
-    ],
+    description: 'Leading backend development for blockchain & DeFi platforms, architecting scalable microservices with NestJS, Redis, and RabbitMQ — including a BullMQ batch engine that cut reward processing time by 65%.',
     technologies: ['NestJS', 'Node.js', 'Redis', 'RabbitMQ', 'BullMQ', 'Socket.IO', 'Docker', 'MongoDB', 'PostgreSQL'],
   },
   {
@@ -201,27 +194,27 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Mar 2023 – Aug 2024',
     current: false,
-    description: [
-      'Led a cross-functional team of 15+ engineers to deliver secure, high-quality solutions for eRL 2.0 and SLAASM projects.',
-      'Designed application architecture, database models, and code structure to ensure scalability and maintainability.',
-      'Collaborated closely with international clients in Sweden and Singapore, driving R&D initiatives.',
-      'Enforced engineering best practices including TDD, code reviews, and Agile ceremonies.',
-    ],
+    description: 'Led a 15+ engineer team delivering eRL 2.0 and SLAASM for international clients in Sweden and Singapore, driving architecture design, code quality, and Agile best practices.',
     technologies: ['NestJS', 'React.js', 'TypeORM', 'MySQL', 'Keycloak', 'Docker', 'Azure'],
   },
   {
-    id: 'inova-senior',
-    role: 'Associate Technical Lead – Senior Software Engineer',
+    id: 'inova-atl',
+    role: 'Associate Tech Lead',
     company: 'Inova IT Systems (Pvt) Ltd',
     location: 'Colombo, Sri Lanka',
-    period: 'Oct 2018 – Mar 2023',
+    period: 'Apr 2021 – Mar 2023',
     current: false,
-    description: [
-      'Optimized CxPulse platform performance with improved Laravel queues and SQL, boosting system efficiency by 70%.',
-      'Enhanced dashboards and CMS by integrating Node.js microservices with React.js frontend.',
-      'Led the development team, conducted code reviews, and collaborated with QA to ensure delivery quality.',
-      'Mentored junior developers and promoted clean-code and SOLID principles across the team.',
-    ],
+    description: 'Promoted to Associate Technical Lead, driving architecture decisions, mentoring developers on clean-code and SOLID principles, and collaborating with QA to ensure delivery quality.',
+    technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
+  },
+  {
+    id: 'inova-senior',
+    role: 'Senior Software Engineer',
+    company: 'Inova IT Systems (Pvt) Ltd',
+    location: 'Colombo, Sri Lanka',
+    period: 'Oct 2018 – Apr 2021',
+    current: false,
+    description: 'Optimized the CxPulse platform boosting efficiency by 70%, integrated Node.js microservices with React.js frontend, and enhanced dashboards and CMS modules.',
     technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
   },
   {
@@ -231,11 +224,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Nov 2017 – Sep 2018',
     current: false,
-    description: [
-      'Developed and maintained OneHRIS, a comprehensive HRIS and payroll management system.',
-      'Collaborated with end-users to gather requirements and translate them into robust software features.',
-      'Delivered performance enhancements and feature upgrades across multiple product modules.',
-    ],
+    description: 'Developed and maintained OneHRIS, a full-featured HRIS and payroll system, delivering performance enhancements and new features based on end-user requirements.',
     technologies: ['PHP Laravel', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
@@ -245,11 +234,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Aug 2016 – Nov 2017',
     current: false,
-    description: [
-      'Developed mintHRM, an open-source HRIS platform used across multiple organizations.',
-      'Led the design and implementation of the Leave Management module end-to-end.',
-      'Contributed to architecture decisions and maintained code quality standards.',
-    ],
+    description: 'Built mintHRM, an open-source HRIS platform, leading the end-to-end design of the Leave Management module and contributing to architecture and code quality standards.',
     technologies: ['PHP Yii', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
@@ -259,18 +244,13 @@ export const experiences: ExperienceItem[] = [
     location: 'Moratuwa, Sri Lanka',
     period: 'Jul 2014 – Jul 2016',
     current: false,
-    description: [
-      'Developed and maintained MIS and ERP systems for university administrative operations.',
-      'Built data management modules for financial and academic departments.',
-      'Collaborated in an Agile team environment to deliver iterative software releases.',
-    ],
+    description: 'Developed and maintained MIS systems for university administrative operations, building data management modules for financial and academic departments in an Agile environment.',
     technologies: ['PHP', 'JavaScript', 'MySQL', 'HTML5', 'CSS'],
   },
 ];
 
 // ── Projects ───────────────────────────────────────────────
 export const projects: ProjectItem[] = [
-  // ── Featured ──────────────────────────────────────────────
   {
     id: 'homnifi',
     name: 'Homnifi Platform',
@@ -285,23 +265,21 @@ export const projects: ProjectItem[] = [
       'Multi-wallet integration (MetaMask, WalletConnect)',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
   },
   {
-    id: 'defi360',
-    name: 'DeFi360',
-    year: '2024',
+    id: 'mai-hrms',
+    name: 'Mai HRMS',
+    year: '2025',
     description:
-      'Full-featured DeFi platform backend powering staking, licensing, and crypto wallet operations with on-chain smart contract integrations.',
-    techStack: ['NestJS', 'MongoDB', 'Ethers.js', 'Redis', 'Docker', 'PostgreSQL'],
+      'AI-powered HR platform that transforms employee data into smart insights, automates workflows, and enriches decisions.',
+    techStack: ['NestJS', 'MongoDB', 'Next.js', 'Redis', 'Docker', 'PostgreSQL'],
     highlights: [
-      'Smart contract reward distribution and vesting schedules',
-      'Multi-chain wallet integration and portfolio management',
-      'Automated compliance and KYC workflow integration',
-      'Real-time staking analytics across multiple token pools',
+      'AI-driven insights from employee data and behaviour patterns',
+      'Automated HR workflows for onboarding, leave, and payroll',
+      'Smart decision enrichment across workforce management',
+      'Real-time analytics dashboards with predictive reporting',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
   },
   {
     id: 'erl2',
@@ -317,7 +295,6 @@ export const projects: ProjectItem[] = [
       'Automated audit trails and compliance reporting',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
   },
   {
     id: 'dynamicdocs',
@@ -333,7 +310,6 @@ export const projects: ProjectItem[] = [
       'Used by multiple enterprise clients across Scandinavia',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
   },
   {
     id: 'cxpulse',
@@ -349,7 +325,6 @@ export const projects: ProjectItem[] = [
       'Custom analytics dashboards for real-time insights',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
   },
   {
     id: 'doc990',
@@ -365,266 +340,6 @@ export const projects: ProjectItem[] = [
       'SMS & email notification integrations',
     ],
     featured: true,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-
-  // ── Also Shipped ───────────────────────────────────────────
-  {
-    id: 'slaasm',
-    name: 'SLAASMB',
-    year: '2023',
-    description:
-      'Audit automation platform with secure identity management, streamlining government audit workflows and reporting.',
-    techStack: ['Express.js', 'TypeScript', 'React Material-UI', 'MySQL', 'WSO2'],
-    highlights: [
-      'WSO2 Identity Server integration for secure SSO',
-      'Automated audit workflow engine',
-      'Role-based access control across departments',
-      'Compliance-ready reporting and document management',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'onehris',
-    name: 'OneHRIS / MintHRM',
-    year: '2017',
-    description:
-      'Cloud-based HR management systems with comprehensive leave, attendance, and payroll processing modules.',
-    techStack: ['PHP Laravel', 'PHP Yii', 'JavaScript', 'MySQL', 'HTML5'],
-    highlights: [
-      'End-to-end payroll calculation engine',
-      'Biometric attendance integration',
-      'Multi-company and multi-currency support',
-      'Open-source version adopted globally',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'blockchain-reward-engine',
-    name: 'Blockchain Reward Engine',
-    year: '2024',
-    description:
-      'High-throughput batch processing engine for on-chain reward calculations and smart contract distribution at scale.',
-    techStack: ['NestJS', 'BullMQ', 'Redis', 'Ethers.js', 'PostgreSQL'],
-    highlights: [
-      'Processes millions of reward calculations per cycle',
-      'Retry logic and dead-letter queues for fault tolerance',
-      'Real-time job monitoring and alerting dashboard',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'staker-wallet-gateway',
-    name: 'Staker Wallet Gateway',
-    year: '2024',
-    description:
-      'Unified wallet abstraction layer supporting MetaMask, WalletConnect, and custom hardware wallet integrations.',
-    techStack: ['NestJS', 'Ethers.js', 'Web3.js', 'MongoDB', 'Redis'],
-    highlights: [
-      'Multi-chain support across EVM-compatible networks',
-      'Transaction signing and gas estimation',
-      'Wallet session management with JWT and refresh tokens',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'pandadoc-onboarding',
-    name: 'PandaDoc Onboarding Service',
-    year: '2024',
-    description:
-      'Automated document workflow for user onboarding, e-signature collection, and KYC compliance at SoftBuilders.',
-    techStack: ['NestJS', 'PandaDoc API', 'MongoDB', 'RabbitMQ'],
-    highlights: [
-      'End-to-end e-signature workflow automation',
-      'Template-driven document generation',
-      'Webhook-driven real-time status updates',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'erl-api-gateway',
-    name: 'eRL API Gateway',
-    year: '2023',
-    description:
-      'Centralized API gateway for routing, authentication, and rate-limiting across eRL government microservices.',
-    techStack: ['NestJS', 'Keycloak', 'Redis', 'Docker', 'Azure'],
-    highlights: [
-      'JWT and OAuth2 authentication middleware',
-      'Rate limiting and DDoS protection at gateway level',
-      'Audit logging for all government API interactions',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'revenue-license-docs',
-    name: 'Revenue License Document Engine',
-    year: '2023',
-    description:
-      'Automated PDF generation engine for vehicle revenue licenses, receipts, and government compliance documents.',
-    techStack: ['NestJS', 'Puppeteer', 'MySQL', 'Azure Blob Storage'],
-    highlights: [
-      'Bulk document generation at high throughput',
-      'Digital signature, watermarking, and tamper detection',
-      'Template management for 10+ document types',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'cxpulse-campaign',
-    name: 'CxPulse Campaign Engine',
-    year: '2022',
-    description:
-      'Multi-channel survey campaign scheduler and delivery system with audience targeting and segmentation.',
-    techStack: ['PHP Laravel', 'MySQL', 'Redis', 'Laravel Queue', 'SMS Gateway'],
-    highlights: [
-      'Segment-based campaign audience targeting',
-      'SMS and email delivery with intelligent retry logic',
-      'Campaign analytics, heatmaps, and response tracking',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'channel-analytics',
-    name: 'Channel Partner Analytics',
-    year: '2021',
-    description:
-      'Real-time analytics portal for telecom channel partners to monitor KPIs, commissions, and product performance.',
-    techStack: ['Node.js', 'React.js', 'MySQL', 'Redis', 'Chart.js'],
-    highlights: [
-      'Real-time KPI dashboards with drill-down capability',
-      'Commission calculation and dispute reporting',
-      'Regional performance analytics by product category',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'wso2-iam',
-    name: 'WSO2 Identity Platform',
-    year: '2023',
-    description:
-      'Enterprise Identity and Access Management implementation with SSO, MFA, and role-based access control across government systems.',
-    techStack: ['WSO2 IS', 'SAML 2.0', 'OAuth2', 'LDAP', 'React.js'],
-    highlights: [
-      'SSO across 5+ enterprise applications',
-      'MFA with TOTP and SMS verification',
-      'User provisioning and full lifecycle management',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'patient-queue',
-    name: 'Patient Queue Manager',
-    year: '2021',
-    description:
-      'Real-time patient queue tracking system with token management and digital signage integration for hospital OPDs.',
-    techStack: ['Node.js', 'Socket.IO', 'MySQL', 'React.js'],
-    highlights: [
-      'Real-time queue updates via WebSockets',
-      'Digital display board integration',
-      'Doctor availability and appointment slot management',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'payroll-engine',
-    name: 'OneHRIS Payroll Engine',
-    year: '2018',
-    description:
-      'Complex payroll calculation engine supporting multi-company, multi-currency, and statutory deduction computations.',
-    techStack: ['PHP Laravel', 'MySQL', 'JavaScript', 'Redis'],
-    highlights: [
-      'Multi-company payroll in a single batch run',
-      'Statutory deduction rules per jurisdiction',
-      'Bank export formats for direct payment processing',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'biometric-attendance',
-    name: 'Biometric Attendance System',
-    year: '2018',
-    description:
-      'Integration layer for biometric fingerprint devices with real-time attendance sync and shift management.',
-    techStack: ['PHP Laravel', 'MySQL', 'ZKTeco SDK', 'Node.js'],
-    highlights: [
-      'Real-time device synchronization via TCP/IP',
-      'Shift scheduling and overtime calculation engine',
-      'Late arrival, early exit, and absentee tracking',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'mintherm-recruitment',
-    name: 'MintHRM Recruitment Module',
-    year: '2017',
-    description:
-      'End-to-end recruitment workflow module with job posting, applicant tracking, and interview scheduling.',
-    techStack: ['PHP Yii', 'MySQL', 'JavaScript', 'HTML5'],
-    highlights: [
-      'Job board integration and applicant self-service portal',
-      'Interview scheduling and structured feedback collection',
-      'Offer letter generation and digital acceptance tracking',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'university-erp',
-    name: 'University Financial ERP',
-    year: '2015',
-    description:
-      'Financial management information system for university accounts, procurement, and budget management.',
-    techStack: ['PHP', 'MySQL', 'JavaScript', 'HTML5'],
-    highlights: [
-      'Chart of accounts with double-entry bookkeeping',
-      'Purchase order and vendor management workflows',
-      'Budget allocation, variance reporting, and forecasting',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'student-portal',
-    name: 'Student Affairs Portal',
-    year: '2015',
-    description:
-      'Self-service student portal for academic records, course registration, and campus administrative services.',
-    techStack: ['PHP', 'MySQL', 'JavaScript', 'CSS3'],
-    highlights: [
-      'Online course registration and add/drop management',
-      'Academic transcript and certificate generation',
-      'Fee payment and scholarship application tracking',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
-  },
-  {
-    id: 'exam-management',
-    name: 'Examination Management System',
-    year: '2014',
-    description:
-      'Comprehensive exam scheduling, hall allocation, and result processing system for university administration.',
-    techStack: ['PHP', 'MySQL', 'JavaScript', 'HTML5'],
-    highlights: [
-      'Automated timetable and hall allocation generation',
-      'Invigilator assignment and conflict resolution',
-      'Result processing, GPA calculation, and transcript output',
-    ],
-    featured: false,
-    githubUrl: 'https://github.com/chakuma8998',
   },
 ];
 
@@ -636,6 +351,7 @@ export const education: EducationItem[] = [
     country: 'United Kingdom',
     year: '2017',
     icon: '🎓',
+    logo: '/cardiff-met.png',
   },
   {
     degree: 'BEng (Hons) Software Engineering',
@@ -643,6 +359,7 @@ export const education: EducationItem[] = [
     country: 'United Kingdom',
     year: '2013',
     icon: '🎓',
+    logo: '/staffordshire.png',
   },
 ];
 
@@ -674,7 +391,10 @@ export const heroBadges = [
   { label: 'NestJS', color: 'bg-red-500/20 text-red-300 border-red-500/30' },
   { label: 'TypeScript', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
   { label: 'React', color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
+  { label: 'Next.js', color: 'bg-white/10 text-white/70 border-white/20' },
   { label: 'Docker', color: 'bg-sky-500/20 text-sky-300 border-sky-500/30' },
+  { label: 'PostgreSQL', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' },
+  { label: 'MySQL', color: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
   { label: 'MongoDB', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
   { label: 'Redis', color: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
   { label: 'AWS', color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },

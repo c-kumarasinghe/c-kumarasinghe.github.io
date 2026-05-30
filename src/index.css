@@ -46,6 +46,13 @@
   .neon-border {
     @apply border border-indigo-500/30 hover:border-indigo-500/60 transition-colors duration-300;
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
   .gradient-text {
     @apply bg-gradient-to-r from-indigo-400 via-purple-400 to-blue-400 bg-clip-text text-transparent;
   }

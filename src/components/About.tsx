@@ -32,7 +32,7 @@ const terminalCode = `const developer = {
     "Full Stack Development",
     "Cloud & DevOps"
   ],
-  currentFocus: "DeFi360 at SoftBuilders",
+  currentFocus: "Team Lead Full Stack",
   openToWork: true,
 };`;
 
@@ -41,7 +41,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="about" ref={ref} className="relative section-padding overflow-hidden">
+    <section id="about" ref={ref} className="relative px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 lg:pt-16 pb-20 sm:pb-24 overflow-hidden">
       {/* Subtle background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#080c14] via-[#0d1117]/50 to-[#080c14] pointer-events-none" />
 
@@ -122,8 +122,8 @@ export default function About() {
               <p className="text-white/60 leading-relaxed text-base">
                 Currently leading backend development at{' '}
                 <span className="text-indigo-300 font-medium">SoftBuilders Software Design LLC</span> in
-                Dubai, where I architect blockchain-driven platforms and real-time microservice systems
-                for DeFi applications.
+                Dubai, where I architect and deliver scalable platforms across blockchain & DeFi,
+                HR & workforce management, and e-commerce & dropshipping.
               </p>
               <p className="text-white/60 leading-relaxed text-base">
                 My passion lies at the intersection of clean architecture, high-performance systems, and
@@ -158,21 +158,30 @@ export default function About() {
               {education.map((edu, i) => (
                 <motion.div
                   key={i}
-                  whileHover={{ y: -3, scale: 1.01 }}
-                  className="glass-card p-5 neon-border group"
+                  whileHover={{ y: -4 }}
+                  className="relative flex overflow-hidden rounded-xl border border-white/8 hover:border-indigo-500/30 transition-all duration-300 group"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="text-3xl">{edu.icon}</div>
-                    <div>
-                      <div className="font-semibold text-white text-sm sm:text-base">{edu.degree}</div>
-                      <div className="text-indigo-300 text-sm mt-0.5">{edu.institution}</div>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-white/40">{edu.country}</span>
-                        <span className="w-1 h-1 bg-white/20 rounded-full" />
-                        <span className="text-xs text-white/40">{edu.year}</span>
-                      </div>
+                  {/* Left logo panel */}
+                  <div className="w-20 flex-shrink-0 bg-white flex items-center justify-center p-2">
+                    {edu.logo
+                      ? <img src={edu.logo} alt={edu.institution} className="w-full object-contain" />
+                      : <span className="text-2xl">{edu.icon}</span>
+                    }
+                  </div>
+
+                  {/* Right info panel */}
+                  <div className="flex-1 bg-[#0d1117]/90 backdrop-blur-sm p-4 flex flex-col justify-center">
+                    <div className="font-semibold text-white text-sm sm:text-base leading-snug">{edu.degree}</div>
+                    <div className="text-indigo-300 text-sm mt-0.5">{edu.institution}</div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-xs text-white/40">{edu.country}</span>
+                      <span className="w-1 h-1 bg-white/20 rounded-full" />
+                      <span className="text-xs text-white/40">{edu.year}</span>
                     </div>
                   </div>
+
+                  {/* Hover glow line */}
+                  <div className="absolute left-20 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-indigo-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.div>
               ))}
             </div>
@@ -184,12 +193,12 @@ export default function About() {
               <span className="text-indigo-400 font-mono text-sm">{'//>'}</span>
               Certifications
             </h3>
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {certifications.map((cert, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -2, scale: 1.02 }}
-                  className="glass-card px-4 py-3 neon-border flex items-center gap-3"
+                  className="glass-card px-4 py-5 neon-border flex items-center gap-3"
                 >
                   <span className="text-xl">{cert.icon}</span>
                   <div>

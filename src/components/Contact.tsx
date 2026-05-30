@@ -120,36 +120,17 @@ export default function Contact() {
               Get In <span className="gradient-text">Touch</span>
             </h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              Looking for a Senior Engineer or Team Lead? I'm open to exciting new opportunities.
-              Let's build something great together.
+              Have a challenging problem to solve or a product to scale? Whether it's a full-time role,
+              consulting, or collaboration — let's have a conversation.
             </p>
           </motion.div>
 
           {/* Main grid */}
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
             {/* Left — Contact links */}
-            <motion.div variants={itemVariants} className="space-y-5">
-              {/* Availability badge */}
-              <div className="glass-card p-5 border border-green-500/15">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-green-400 text-lg">⚡</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="text-green-400 font-semibold text-sm">Open to Opportunities</span>
-                    </div>
-                    <p className="text-white/50 text-sm leading-relaxed">
-                      Available for full-time roles, consulting, and contract work. Based in Dubai, UAE
-                      with remote work flexibility.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
+            <motion.div variants={itemVariants} className="flex flex-col gap-3">
               {/* Contact links */}
-              <div className="space-y-3">
+              <div className="flex flex-col gap-3 flex-1">
                 {contactLinks.map((link) => (
                   <motion.a
                     key={link.label}
@@ -157,7 +138,7 @@ export default function Contact() {
                     target={link.label !== 'Phone' && link.label !== 'Email' ? '_blank' : undefined}
                     rel="noopener noreferrer"
                     whileHover={{ x: 4, scale: 1.01 }}
-                    className={`flex items-center gap-4 p-4 glass-card border transition-all duration-200 group ${link.color}`}
+                    className={`flex items-center gap-4 p-4 glass-card border transition-all duration-200 group flex-1 ${link.color}`}
                   >
                     <div className="flex-shrink-0">{link.icon}</div>
                     <div className="flex-1 min-w-0">
@@ -179,38 +160,24 @@ export default function Contact() {
                 ))}
               </div>
 
-              {/* Download CV + Cover Letter */}
-              <div className="grid sm:grid-cols-2 gap-3">
-                <motion.a
-                  href="/cv.pdf"
-                  download="Chathuranga-Kumarasinghe-Resume.pdf"
-                  whileHover={{ scale: 1.02, boxShadow: '0 0 24px rgba(99,102,241,0.4)' }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-indigo-600/20"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Download Resume
-                </motion.a>
-                <motion.a
-                  href="/cover-letter.pdf"
-                  download="Chathuranga-Kumarasinghe-Cover-Letter.pdf"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-xl border border-white/10 hover:border-indigo-500/40 transition-all duration-200"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Cover Letter
-                </motion.a>
-              </div>
+              {/* Download CV */}
+              <motion.a
+                href="/cv.pdf"
+                download="Chathuranga-Kumarasinghe-Resume.pdf"
+                whileHover={{ scale: 1.02, boxShadow: '0 0 24px rgba(99,102,241,0.4)' }}
+                whileTap={{ scale: 0.98 }}
+                className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-indigo-600/20"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download Resume
+              </motion.a>
             </motion.div>
 
             {/* Right — Contact form */}
-            <motion.div variants={itemVariants}>
-              <div className="glass-card p-6 sm:p-8 border border-white/8">
+            <motion.div variants={itemVariants} className="flex flex-col">
+              <div className="glass-card p-6 sm:p-8 border border-white/8 flex flex-col flex-1">
                 <div className="terminal-header -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 mb-6 rounded-t-xl">
                   <span className="terminal-dot bg-red-500" />
                   <span className="terminal-dot bg-yellow-500" />
@@ -281,7 +248,7 @@ export default function Contact() {
                       </label>
                       <textarea
                         required
-                        rows={5}
+                        rows={3}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Hi Chathuranga, I'd like to discuss..."

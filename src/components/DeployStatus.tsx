@@ -35,7 +35,7 @@ function StatusIcon({ status }: { status: Step['status'] }) {
 
 export default function DeployStatus() {
   return (
-    <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl glass-card border border-white/8">
+    <div className="inline-flex items-center gap-2 px-3 py-2 rounded-xl glass-card border border-white/8 max-w-full overflow-x-auto">
       <div className="flex items-center gap-1.5">
         <motion.div
           animate={{ opacity: [1, 0.4, 1] }}

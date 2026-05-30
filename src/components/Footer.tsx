@@ -31,8 +31,13 @@ export default function Footer() {
             viewport={{ once: true }}
             className="flex items-center gap-3"
           >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <span className="font-mono font-bold text-sm text-white">CK</span>
+            <div className="w-9 h-9 rounded-lg overflow-hidden border border-indigo-500/30 flex-shrink-0">
+              <img
+                src="/profile.jpg"
+                alt="Chathuranga Kumarasinghe"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center 15%', transform: 'translateZ(0)' }}
+              />
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Chathuranga Kumarasinghe</div>
