@@ -63,7 +63,7 @@ export const personalInfo = {
   phone: '+971557504580',
   location: 'Dubai, UAE',
   linkedin: 'https://linkedin.com/in/chathurangak',
-  github: 'https://github.com/chakuma8998',
+  github: 'https://github.com/c-kumarasinghe',
   cvUrl: '/cv.pdf',
   summary:
     'Results-oriented Senior Software Engineer (Full Stack) with 11+ years of experience delivering high-quality software solutions across blockchain, ERP, HR, and healthcare domains. Proficient in Node.js, NestJS, ReactJS, TypeScript, and cloud platforms. Demonstrated ability to lead teams, drive innovation, and design scalable, maintainable systems.',

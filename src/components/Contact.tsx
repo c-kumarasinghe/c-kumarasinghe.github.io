@@ -66,7 +66,7 @@ export default function Contact() {
         </svg>
       ),
       label: 'GitHub',
-      value: 'github.com/chakuma8998',
+      value: 'github.com/c-kumarasinghe',
       href: personalInfo.github,
       color: 'text-white/70 bg-white/5 border-white/10 hover:border-white/30',
     },
