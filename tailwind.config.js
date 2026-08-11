@@ -1,49 +1,41 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        dark: {
-          900: '#040508',
-          800: '#080c14',
-          700: '#0d1117',
-          600: '#0f1923',
-          500: '#131d2e',
-          400: '#1a2535',
-          300: '#1e2d42',
+        // Warm greige paper scale — not clinical white
+        paper: {
+          50: '#FDFCFA',
+          100: '#F8F6F1',
+          200: '#F2EFE9', // page background
+          300: '#E9E5DC',
+          400: '#DDD8CC', // hairline
+          500: '#C9C2B3',
         },
-        neon: {
-          blue: '#3b82f6',
-          purple: '#8b5cf6',
-          cyan: '#06b6d4',
-          violet: '#7c3aed',
-          indigo: '#6366f1',
+        // Warm near-black neutral scale
+        ink: {
+          900: '#14120F',
+          800: '#221F1A',
+          700: '#3D3931',
+          600: '#605B50',
+          500: '#8A8478',
+          400: '#ADA79A',
         },
+        accent: '#A8502A',
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        display: ['Instrument Serif', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
-      animation: {
-        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'cursor-blink': 'cursor-blink 1s step-end infinite',
+      fontSize: {
+        hero: ['clamp(3.5rem, 10vw, 9.5rem)', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
+        section: ['clamp(2.1rem, 5.5vw, 4.5rem)', { lineHeight: '0.98', letterSpacing: '-0.035em' }],
+        display: ['clamp(1.5rem, 3vw, 2.4rem)', { lineHeight: '1.06', letterSpacing: '-0.025em' }],
       },
-      keyframes: {
-        'glow-pulse': {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '0.8' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        'cursor-blink': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        },
+      maxWidth: {
+        shell: '90rem',
       },
     },
   },

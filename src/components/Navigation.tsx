@@ -5,8 +5,7 @@ const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
   { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#projects', label: 'Work' },
 ];
 
 export default function Navigation() {
@@ -16,24 +15,20 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Update active section based on scroll position
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (const section of sections.reverse()) {
-        const el = document.getElementById(section);
-        if (el && window.scrollY >= el.offsetTop - 120) {
-          setActiveSection(section);
+      setScrolled(window.scrollY > 24);
+      const ids = [...navLinks.map((l) => l.href.slice(1)), 'contact'];
+      for (const id of ids.reverse()) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 140) {
+          setActiveSection(id);
           break;
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) setMenuOpen(false);
@@ -44,148 +39,115 @@ export default function Navigation() {
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
-    const el = document.getElementById(href.slice(1));
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+      <motion.header
+        initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#080c14]/90 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20'
-            : 'bg-transparent'
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+          scrolled ? 'bg-paper-200/85 backdrop-blur-md border-b border-paper-400' : 'bg-transparent'
         }`}
       >
-        <div className="container-max px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <motion.a
+        <div className="shell">
+          <div className="flex items-center justify-between h-20">
+            {/* Monogram */}
+            <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-3 group"
             >
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-500 p-[2px] shadow-md group-hover:shadow-indigo-500/30 transition-shadow duration-300">
-                <img src="/profile.jpg" alt="CK" className="w-full h-full rounded-lg object-cover" style={{ objectPosition: 'center 15%', transform: 'translateZ(0)' }} />
-              </div>
-              <span className="hidden sm:block font-mono text-sm text-white/60 group-hover:text-white/90 transition-colors">
-                chathuranga.dev
+              <span className="flex items-center justify-center w-9 h-9 rounded-full border border-ink-900/25 text-xs font-medium tracking-tight text-ink-900 transition-colors duration-300 group-hover:bg-ink-900 group-hover:text-paper-100">
+                CK
               </span>
-            </motion.a>
+              <span className="hidden sm:block text-sm font-medium tracking-tight text-ink-900">
+                Chathuranga Kumarasinghe
+              </span>
+            </a>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    activeSection === link.href.slice(1)
-                      ? 'text-white'
-                      : 'text-white/50 hover:text-white/90'
-                  }`}
-                >
-                  {activeSection === link.href.slice(1) && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute inset-0 bg-white/8 rounded-lg border border-white/10"
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
-                </button>
-              ))}
-            </div>
+            {/* Desktop links */}
+            <nav className="hidden md:flex items-center gap-9">
+              {navLinks.map((link) => {
+                const active = activeSection === link.href.slice(1);
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => handleNavClick(link.href)}
+                    className={`relative text-sm transition-colors duration-300 ${
+                      active ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
+                    }`}
+                  >
+                    {link.label}
+                    {active && (
+                      <motion.span
+                        layoutId="navDot"
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent"
+                        transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </nav>
 
-            {/* CTA + Hamburger */}
             <div className="flex items-center gap-3">
-              <motion.a
-                href="/cv.pdf"
-                download="Chathuranga-Kumarasinghe-Resume.pdf"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="hidden md:flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-indigo-500/25"
+              <button
+                onClick={() => handleNavClick('#contact')}
+                className="hidden md:inline-flex items-center gap-1.5 text-sm text-ink-900 link-wipe"
               >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Resume
-              </motion.a>
+                Get in touch
+                <span aria-hidden className="text-xs">&#8599;</span>
+              </button>
 
               {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen((v) => !v)}
-                className="md:hidden relative w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-white/5 transition-colors"
+                className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px]"
                 aria-label="Toggle menu"
               >
                 <motion.span
-                  animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-0.5 bg-white/70 rounded-full origin-center"
+                  animate={menuOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
+                  className="block w-5 h-px bg-ink-900 origin-center"
                 />
                 <motion.span
-                  animate={menuOpen ? { opacity: 0, x: -8 } : { opacity: 1, x: 0 }}
-                  className="block w-5 h-0.5 bg-white/70 rounded-full"
-                />
-                <motion.span
-                  animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-0.5 bg-white/70 rounded-full origin-center"
+                  animate={menuOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
+                  className="block w-5 h-px bg-ink-900 origin-center"
                 />
               </button>
             </div>
           </div>
         </div>
-      </motion.nav>
+      </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 md:hidden bg-[#0d1117]/95 backdrop-blur-xl border-b border-white/5"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed top-20 left-0 right-0 z-40 md:hidden bg-paper-200 border-b border-paper-400"
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
-              {navLinks.map((link, i) => (
-                <motion.button
+            <div className="shell py-4">
+              {[...navLinks, { href: '#contact', label: 'Contact' }].map((link, i) => (
+                <button
                   key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
                   onClick={() => handleNavClick(link.href)}
-                  className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    activeSection === link.href.slice(1)
-                      ? 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/20'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
-                  }`}
+                  className="w-full flex items-baseline gap-4 py-4 text-left border-b border-paper-300 last:border-0"
                 >
-                  <span className="text-indigo-500/60 font-mono mr-2">{String(i + 1).padStart(2, '0')}.</span>
-                  {link.label}
-                </motion.button>
+                  <span className="font-mono text-[0.688rem] text-ink-400">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-xl font-light tracking-tight text-ink-900">{link.label}</span>
+                </button>
               ))}
-              <div className="pt-2 border-t border-white/5 mt-1">
-                <a
-                  href="/cv.pdf"
-                  download
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-medium bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  Download Resume
-                </a>
-              </div>
             </div>
           </motion.div>
         )}

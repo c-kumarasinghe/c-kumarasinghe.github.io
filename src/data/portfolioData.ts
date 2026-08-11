@@ -5,8 +5,6 @@
 export interface SkillCategory {
   id: string;
   label: string;
-  icon: string;
-  color: string;
   skills: string[];
 }
 
@@ -37,8 +35,9 @@ export interface EducationItem {
   degree: string;
   institution: string;
   country: string;
+  /** Short form used inline beside the institution, e.g. "UK" */
+  countryShort?: string;
   year: string;
-  icon: string;
   logo?: string;
 }
 
@@ -46,44 +45,57 @@ export interface CertificationItem {
   title: string;
   issuer: string;
   year: string;
-  icon: string;
 }
 
 export interface StatItem {
   value: string;
   label: string;
-  icon: string;
 }
 
 // ── Personal Info ──────────────────────────────────────────
 export const personalInfo = {
   name: 'Chathuranga Kumarasinghe',
-  title: 'Senior Software Engineer | Backend Engineer | Team Lead',
+  title: 'Lead Software Engineer',
   email: 'kumarasinghe.it@gmail.com',
   phone: '+971557504580',
+  /** Presentational form — the raw value stays for tel: links */
+  phoneDisplay: '+971 55 750 4580',
   location: 'Dubai, UAE',
   linkedin: 'https://linkedin.com/in/chathurangak',
   github: 'https://github.com/c-kumarasinghe',
   cvUrl: '/cv.pdf',
   summary:
-    'Results-oriented Senior Software Engineer (Full Stack) with 11+ years of experience delivering high-quality software solutions across blockchain, ERP, HR, and healthcare domains. Proficient in Node.js, NestJS, ReactJS, TypeScript, and cloud platforms. Demonstrated ability to lead teams, drive innovation, and design scalable, maintainable systems.',
+    'Results-oriented Lead Software Engineer (Full Stack) with 12+ years of experience delivering high-quality software solutions across AI-powered products, blockchain, fintech, HRM and ERP. Proficient in Node.js, NestJS, ReactJS, TypeScript, LLM integrations and cloud platforms. Demonstrated ability to lead teams, drive innovation, and design scalable, maintainable systems.',
+  bio:
+    'Lead Software Engineer with 12+ years designing scalable systems and leading the engineering teams that build them — from AI-powered platforms and blockchain to fintech, HRM and ERP.',
 } as const;
 
 // ── Stats ──────────────────────────────────────────────────
 export const stats: StatItem[] = [
-  { value: '11+', label: 'Years Experience', icon: '🚀' },
-  { value: '15+', label: 'Team Members Led', icon: '👥' },
-  { value: '20+', label: 'Projects Shipped', icon: '📦' },
-  { value: '5+', label: 'Industry Domains', icon: '🌐' },
+  { value: '12+', label: 'Years experience' },
+  { value: '15+', label: 'Engineers led' },
+  { value: '20+', label: 'Projects shipped' },
+  { value: '5+', label: 'Industry domains' },
 ];
 
 // ── Skills ─────────────────────────────────────────────────
 export const skillCategories: SkillCategory[] = [
   {
+    id: 'ai',
+    label: 'AI & LLM Engineering',
+    skills: [
+      'OpenAI API',
+      'LLM Integration',
+      'RAG Pipelines',
+      'Embeddings & Vector Search',
+      'AI Assistants',
+      'Prompt Engineering',
+      'Intelligent Automation',
+    ],
+  },
+  {
     id: 'backend',
     label: 'Backend',
-    icon: '⚙️',
-    color: 'from-indigo-500/20 to-indigo-500/5',
     skills: [
       'Node.js',
       'NestJS',
@@ -99,8 +111,6 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'frontend',
     label: 'Frontend',
-    icon: '🎨',
-    color: 'from-purple-500/20 to-purple-500/5',
     skills: [
       'React.js',
       'Next.js',
@@ -113,10 +123,19 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'mobile',
+    label: 'Mobile',
+    skills: [
+      'React Native',
+      'Expo',
+      'Cross-platform iOS & Android',
+      'Push Notifications',
+      'App Store & Play Store Delivery',
+    ],
+  },
+  {
     id: 'databases',
     label: 'Databases & Messaging',
-    icon: '🗄️',
-    color: 'from-blue-500/20 to-blue-500/5',
     skills: [
       'MongoDB',
       'MySQL',
@@ -129,23 +148,8 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    id: 'domains',
-    label: 'Industry Domains',
-    icon: '🌐',
-    color: 'from-cyan-500/20 to-cyan-500/5',
-    skills: [
-      'HR & Workforce Management',
-      'ERP & Enterprise Systems',
-      'Healthcare & Clinic Management',
-      'Blockchain & DeFi',
-      'E-commerce & Retail',
-    ],
-  },
-  {
     id: 'architecture',
     label: 'Architecture & Integration',
-    icon: '🏗️',
-    color: 'from-violet-500/20 to-violet-500/5',
     skills: [
       'Microservices',
       'RESTful APIs',
@@ -160,8 +164,6 @@ export const skillCategories: SkillCategory[] = [
   {
     id: 'practices',
     label: 'Practices & Tools',
-    icon: '🛠️',
-    color: 'from-emerald-500/20 to-emerald-500/5',
     skills: [
       'Agile / Scrum',
       'CI/CD',
@@ -179,12 +181,12 @@ export const skillCategories: SkillCategory[] = [
 export const experiences: ExperienceItem[] = [
   {
     id: 'softbuilders',
-    role: 'Software Developer (Team Lead – Backend)',
+    role: 'Senior Software Engineer (Team Lead)',
     company: 'SoftBuilders Software Design LLC',
     location: 'Business Bay, Dubai, UAE',
     period: 'Aug 2024 – Present',
     current: true,
-    description: 'Leading backend development for blockchain & DeFi platforms, architecting scalable microservices with NestJS, Redis, and RabbitMQ — including a BullMQ batch engine that cut reward processing time by 65%.',
+    description: 'Lead backend development for blockchain & DeFi platforms. Built a BullMQ batch engine that cut reward processing time by 65%.',
     technologies: ['NestJS', 'Node.js', 'Redis', 'RabbitMQ', 'BullMQ', 'Socket.IO', 'Docker', 'MongoDB', 'PostgreSQL'],
   },
   {
@@ -194,7 +196,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Mar 2023 – Aug 2024',
     current: false,
-    description: 'Led a 15+ engineer team delivering eRL 2.0 and SLAASM for international clients in Sweden and Singapore, driving architecture design, code quality, and Agile best practices.',
+    description: 'Led a 15+ engineer team delivering eRL 2.0 and SLAASM for clients in Sweden and Singapore.',
     technologies: ['NestJS', 'React.js', 'TypeORM', 'MySQL', 'Keycloak', 'Docker', 'Azure'],
   },
   {
@@ -204,7 +206,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Apr 2021 – Mar 2023',
     current: false,
-    description: 'Promoted to Associate Technical Lead, driving architecture decisions, mentoring developers on clean-code and SOLID principles, and collaborating with QA to ensure delivery quality.',
+    description: 'Drove architecture decisions and mentored developers on clean-code and SOLID principles.',
     technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
   },
   {
@@ -214,7 +216,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Oct 2018 – Apr 2021',
     current: false,
-    description: 'Optimized the CxPulse platform boosting efficiency by 70%, integrated Node.js microservices with React.js frontend, and enhanced dashboards and CMS modules.',
+    description: 'Optimised the CxPulse platform, boosting efficiency by 70%.',
     technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
   },
   {
@@ -224,7 +226,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Nov 2017 – Sep 2018',
     current: false,
-    description: 'Developed and maintained OneHRIS, a full-featured HRIS and payroll system, delivering performance enhancements and new features based on end-user requirements.',
+    description: 'Built and maintained OneHRIS, a full HRIS and payroll system.',
     technologies: ['PHP Laravel', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
@@ -234,7 +236,7 @@ export const experiences: ExperienceItem[] = [
     location: 'Colombo, Sri Lanka',
     period: 'Aug 2016 – Nov 2017',
     current: false,
-    description: 'Built mintHRM, an open-source HRIS platform, leading the end-to-end design of the Leave Management module and contributing to architecture and code quality standards.',
+    description: 'Built mintHRM, an open-source HRIS platform, and led its Leave Management module.',
     technologies: ['PHP Yii', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
@@ -244,13 +246,28 @@ export const experiences: ExperienceItem[] = [
     location: 'Moratuwa, Sri Lanka',
     period: 'Jul 2014 – Jul 2016',
     current: false,
-    description: 'Developed and maintained MIS systems for university administrative operations, building data management modules for financial and academic departments in an Agile environment.',
+    description: 'Built MIS systems for university financial and academic departments.',
     technologies: ['PHP', 'JavaScript', 'MySQL', 'HTML5', 'CSS'],
   },
 ];
 
 // ── Projects ───────────────────────────────────────────────
 export const projects: ProjectItem[] = [
+  {
+    id: 'mai-hrms',
+    name: 'Mai HRMS',
+    year: '2025',
+    description:
+      'AI-powered HR platform with an embedded assistant that turns employee data into decisions — LLM-driven insight, retrieval and workflow automation.',
+    techStack: ['OpenAI API', 'RAG', 'NestJS', 'Next.js', 'MongoDB', 'Redis', 'PostgreSQL', 'Docker'],
+    highlights: [
+      'Conversational AI assistant for employee and HR queries',
+      'RAG pipeline over policy and employee data for grounded answers',
+      'AI-driven insight from employee behaviour patterns',
+      'Automated onboarding, leave and payroll workflows',
+    ],
+    featured: true,
+  },
   {
     id: 'homnifi',
     name: 'Homnifi Platform',
@@ -263,21 +280,6 @@ export const projects: ProjectItem[] = [
       'Real-time WebSocket updates for 100K+ users',
       'Smart contract–based reward distribution',
       'Multi-wallet integration (MetaMask, WalletConnect)',
-    ],
-    featured: true,
-  },
-  {
-    id: 'mai-hrms',
-    name: 'Mai HRMS',
-    year: '2025',
-    description:
-      'AI-powered HR platform that transforms employee data into smart insights, automates workflows, and enriches decisions.',
-    techStack: ['NestJS', 'MongoDB', 'Next.js', 'Redis', 'Docker', 'PostgreSQL'],
-    highlights: [
-      'AI-driven insights from employee data and behaviour patterns',
-      'Automated HR workflows for onboarding, leave, and payroll',
-      'Smart decision enrichment across workforce management',
-      'Real-time analytics dashboards with predictive reporting',
     ],
     featured: true,
   },
@@ -349,16 +351,16 @@ export const education: EducationItem[] = [
     degree: 'MSc Information Technology',
     institution: 'Cardiff Metropolitan University',
     country: 'United Kingdom',
+    countryShort: 'UK',
     year: '2017',
-    icon: '🎓',
     logo: '/cardiff-met.png',
   },
   {
     degree: 'BEng (Hons) Software Engineering',
     institution: 'Staffordshire University',
     country: 'United Kingdom',
+    countryShort: 'UK',
     year: '2013',
-    icon: '🎓',
     logo: '/staffordshire.png',
   },
 ];
@@ -369,33 +371,33 @@ export const certifications: CertificationItem[] = [
     title: 'Certification of Leadership and Communication',
     issuer: 'Toastmasters International',
     year: '2022',
-    icon: '🏆',
   },
   {
     title: 'CMMI 2.0 Level 3 – Certificate of Appreciation',
     issuer: 'CMMI Institute',
     year: '2022',
-    icon: '📜',
   },
   {
     title: 'Agile Certification',
     issuer: 'Axiata Digital Labs',
     year: '2022',
-    icon: '⚡',
   },
 ];
 
-// ── Tech Badges (Hero floating badges) ─────────────────────
-export const heroBadges = [
-  { label: 'Node.js', color: 'bg-green-500/20 text-green-300 border-green-500/30' },
-  { label: 'NestJS', color: 'bg-red-500/20 text-red-300 border-red-500/30' },
-  { label: 'TypeScript', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
-  { label: 'React', color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
-  { label: 'Next.js', color: 'bg-white/10 text-white/70 border-white/20' },
-  { label: 'Docker', color: 'bg-sky-500/20 text-sky-300 border-sky-500/30' },
-  { label: 'PostgreSQL', color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' },
-  { label: 'MySQL', color: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
-  { label: 'MongoDB', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
-  { label: 'Redis', color: 'bg-orange-500/20 text-orange-300 border-orange-500/30' },
-  { label: 'AWS', color: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },
+// ── Core stack (rendered as a plain typographic line) ──────
+export const coreStack: string[] = [
+  'Node.js',
+  'NestJS',
+  'TypeScript',
+  'OpenAI API',
+  'React',
+  'Next.js',
+  'PostgreSQL',
+  'MongoDB',
+  'Redis',
+  'Kafka',
+  'Docker',
+  'AWS',
+  'Azure',
 ];
+
