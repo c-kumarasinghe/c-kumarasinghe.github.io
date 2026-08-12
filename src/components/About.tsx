@@ -31,8 +31,10 @@ export default function About() {
             </div>
           </Reveal>
 
-          {/* Education, then certifications kept deliberately quiet beneath it */}
-          <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
+          {/* Education, then certifications kept deliberately quiet beneath it.
+              Pulled up on wide screens only — it reclaims some of the empty
+              space beside the headline without top-aligning to it. */}
+          <Reveal className="lg:col-span-5 lg:col-start-8 lg:-mt-24" delay={0.1}>
             <div className="label mb-4">Education</div>
             {education.map((edu) => (
               <div
