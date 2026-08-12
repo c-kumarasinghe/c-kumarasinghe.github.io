@@ -131,9 +131,9 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: EASE, delay: 0.95 }}
             className="mt-8 lg:mt-10 max-w-xl text-base sm:text-lg font-light leading-relaxed text-ink-600"
           >
-            <span className="text-ink-900">&mdash; I&rsquo;m {personalInfo.name},</span> a lead
-            software engineer in Dubai. I architect scalable systems and lead the teams that build
-            them.
+            <span className="text-ink-900">&mdash; I&rsquo;m {personalInfo.name},</span> a Lead
+            Software Engineer. I design scalable systems, solve complex engineering challenges, and
+            lead teams to build reliable, high-impact products.
           </motion.p>
 
           {/* ── Actions ── */}

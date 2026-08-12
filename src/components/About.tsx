@@ -6,7 +6,7 @@ export default function About() {
   return (
     <section id="about" className="section-pad">
       <div className="shell">
-        <SectionIntro index="01" label="About" headline="Architecting systems. Leading delivery." />
+        <SectionIntro index="01" label="About" headline="Architecting systems. Driving innovation." />
 
         <div className="mt-10 lg:mt-12 grid lg:grid-cols-12 gap-y-10 lg:gap-x-12">
           {/* Bio */}
