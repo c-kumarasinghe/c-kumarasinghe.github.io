@@ -8,7 +8,7 @@ export default function About() {
       <div className="shell">
         <SectionIntro index="01" label="About" headline="Architecting systems. Leading delivery." />
 
-        <div className="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-y-10 lg:gap-x-12">
+        <div className="mt-10 lg:mt-12 grid lg:grid-cols-12 gap-y-10 lg:gap-x-12">
           {/* Bio */}
           <Reveal className="lg:col-span-6">
             <p className="text-lg sm:text-xl font-light leading-relaxed text-ink-800">
@@ -37,7 +37,7 @@ export default function About() {
             {education.map((edu) => (
               <div
                 key={edu.degree}
-                className="flex items-start gap-4 py-5 border-t border-paper-400 last:border-b"
+                className="flex items-start gap-4 py-4 border-t border-paper-400 last:border-b"
               >
                 {edu.logo && (
                   <img
@@ -57,23 +57,20 @@ export default function About() {
               </div>
             ))}
 
-            <div className="label mt-8 mb-3">Certifications</div>
-            <ul className="space-y-1.5">
-              {certifications.map((cert) => (
-                <li key={cert.title} className="text-sm font-light leading-relaxed text-ink-500">
-                  {cert.title}
-                  <span className="text-ink-400">
-                    {' '}
-                    &mdash; {cert.issuer}, {cert.year}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <div className="label mt-7 mb-3">Certifications</div>
+            {certifications.map((cert) => (
+              <div key={cert.title} className="py-3.5 border-t border-paper-400 last:border-b">
+                <div className="text-sm font-light leading-snug text-ink-700">{cert.title}</div>
+                <div className="label mt-1">
+                  {cert.issuer} &middot; {cert.year}
+                </div>
+              </div>
+            ))}
           </Reveal>
         </div>
 
         {/* Stat band */}
-        <Reveal className="mt-14 lg:mt-20">
+        <Reveal className="mt-12 lg:mt-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-paper-400">
             {stats.map((stat) => (
               <div

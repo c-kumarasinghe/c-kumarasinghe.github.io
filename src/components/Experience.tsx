@@ -91,20 +91,44 @@ export default function Experience() {
                     </h3>
                     <div className="label mt-1.5">{group.location}</div>
 
-                    <div className="mt-6 space-y-5">
-                      {group.entries.map((exp) => (
-                        <div key={exp.id} className="max-w-2xl">
-                          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                            <h4 className="text-base font-medium text-ink-900">{exp.role}</h4>
-                            <span className="font-mono text-[0.688rem] text-ink-400">
-                              {exp.period}
-                            </span>
+                    <div
+                      className={`mt-6 max-w-2xl ${
+                        group.entries.length > 1 ? 'relative pl-6' : ''
+                      }`}
+                    >
+                      {/* Rail linking the roles into one continuous tenure */}
+                      {group.entries.length > 1 && (
+                        <span
+                          aria-hidden
+                          className="absolute left-[3px] top-2 bottom-2 w-px bg-paper-400"
+                        />
+                      )}
+
+                      <div className="space-y-6">
+                        {group.entries.map((exp, ri) => (
+                          <div key={exp.id} className="relative">
+                            {group.entries.length > 1 && (
+                              <span
+                                aria-hidden
+                                className={`absolute -left-6 top-[0.4rem] w-[7px] h-[7px] rounded-full border ${
+                                  ri === 0
+                                    ? 'bg-ink-900 border-ink-900'
+                                    : 'bg-paper-200 border-ink-400'
+                                }`}
+                              />
+                            )}
+                            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                              <h4 className="text-base font-medium text-ink-900">{exp.role}</h4>
+                              <span className="font-mono text-[0.688rem] text-ink-400">
+                                {exp.period}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
+                              {exp.description}
+                            </p>
                           </div>
-                          <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
-                            {exp.description}
-                          </p>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
