@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo, stats, coreStack } from '../data/portfolioData';
 import { SplitText, CountUp } from './Reveal';
 
@@ -32,6 +32,37 @@ export default function Hero() {
   const imgY = useTransform(scrollY, [0, 900], ['0%', '8%']);
   const textY = useTransform(scrollY, [0, 900], ['0%', '22%']);
   const textFade = useTransform(scrollY, [0, 520], [1, 0]);
+
+  // The mobile portrait fades against its OWN position, not global scroll — it
+  // stays solid while in view and only fades as it clears the top of the screen.
+  // Driven from the element's rect rather than useScroll({ target }), because the
+  // hero's `overflow-hidden` makes Framer resolve it as the scroll container, so
+  // target-relative progress never advances.
+  const mobileImgRef = useRef<HTMLDivElement>(null);
+  const mobileImgFade = useMotionValue(1);
+
+  useEffect(() => {
+    const el = mobileImgRef.current;
+    if (!el || reduced) return;
+
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const height = rect.height || 1;
+      const past = Math.min(Math.max(-rect.top, 0), height); // px hidden above the fold
+      const progress = past / height; // 0 fully in view → 1 fully past
+      const HOLD = 0.3; // stay fully opaque for the first third of the exit
+      const next = progress <= HOLD ? 1 : 1 - (progress - HOLD) / (1 - HOLD);
+      mobileImgFade.set(Math.min(1, Math.max(0, next)));
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [reduced, mobileImgFade]);
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
@@ -131,21 +162,25 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ── Mobile portrait — outside the fading block so it never fades on screen ── */}
+        {/* ── Mobile portrait — full opacity in view, fades only as it scrolls past ── */}
         <motion.div
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.4 }}
+          ref={mobileImgRef}
+          style={reduced ? undefined : { opacity: mobileImgFade }}
           className="lg:hidden mt-12 -mx-5 sm:-mx-8"
         >
-          <div className="overflow-hidden">
+          <motion.div
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: EASE, delay: 0.4 }}
+            className="overflow-hidden"
+          >
             <img
               src="/profile.jpg"
               alt="Chathuranga Kumarasinghe"
               className="w-full aspect-[4/5] object-cover portrait scale-[1.12] origin-top"
               style={{ objectPosition: 'center 18%' }}
             />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
