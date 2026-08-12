@@ -269,8 +269,8 @@ export const projects: ProjectItem[] = [
     featured: true,
   },
   {
-    id: 'homnifi',
-    name: 'Homnifi Platform',
+    id: 'web3-rewards',
+    name: 'Web3 Rewards Platform',
     year: '2024',
     description:
       'Decentralized application for staking, license management, and blockchain integration with real-time reward processing at scale.',
