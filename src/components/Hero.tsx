@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo, stats, coreStack } from '../data/portfolioData';
 import { SplitText, CountUp } from './Reveal';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/** The hero parallax/fade is a desktop flourish — on mobile the layout is
+ *  stacked, so fading the block would fade the portrait while it is still
+ *  on screen. */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return isDesktop;
+}
+
 export default function Hero() {
   const reduced = useReducedMotion();
+  const isDesktop = useIsDesktop();
   const { scrollY } = useScroll();
 
   // Portrait drifts down slower than the page. Positive travel only — the image is
@@ -46,11 +64,11 @@ export default function Hero() {
         <span className="vertical-label font-mono text-[0.688rem] text-ink-400">2026</span>
       </div>
 
-      <motion.div
-        style={reduced ? undefined : { y: textY, opacity: textFade }}
-        className="shell relative z-10 flex-1 flex flex-col justify-center pt-32 pb-10 lg:pt-40 lg:pb-16"
-      >
-        <div className="lg:max-w-[54%]">
+      <div className="shell relative z-10 flex-1 flex flex-col justify-center pt-32 pb-10 lg:pt-40 lg:pb-16">
+        <motion.div
+          style={reduced || !isDesktop ? undefined : { y: textY, opacity: textFade }}
+          className="lg:max-w-[54%]"
+        >
           {/* ── Stat pairs ── */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 16 }}
@@ -111,9 +129,9 @@ export default function Hero() {
               Get in touch
             </button>
           </motion.div>
-        </div>
+        </motion.div>
 
-        {/* ── Mobile portrait ── */}
+        {/* ── Mobile portrait — outside the fading block so it never fades on screen ── */}
         <motion.div
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -129,7 +147,7 @@ export default function Hero() {
             />
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* ── Bottom bar: animated scroll cue + stack ── */}
       <motion.div
