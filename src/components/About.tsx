@@ -34,7 +34,7 @@ export default function About() {
           {/* Education, then certifications kept deliberately quiet beneath it.
               Pulled up on wide screens only — it reclaims some of the empty
               space beside the headline without top-aligning to it. */}
-          <Reveal className="lg:col-span-5 lg:col-start-8 lg:-mt-24" delay={0.1}>
+          <Reveal className="lg:col-span-5 lg:col-start-8 lg:-mt-8" delay={0.1}>
             <div className="label mb-4">Education</div>
             {education.map((edu) => (
               <div
@@ -74,16 +74,21 @@ export default function About() {
         {/* Stat band */}
         <Reveal className="mt-12 lg:mt-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-paper-400">
-            {stats.map((stat) => (
+            {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="py-6 pr-6 border-b lg:border-b-0 border-paper-400 lg:border-r last:border-r-0"
+                /* Only cells that follow a divider get the left inset: every
+                   second cell in the 2-up mobile grid, everything but the
+                   first in the 4-up desktop one. */
+                className={`py-7 pr-6 border-b lg:border-b-0 border-paper-400 lg:border-r last:border-r-0 ${
+                  i % 2 === 1 ? 'pl-6' : ''
+                } ${i === 0 ? 'lg:pl-0' : 'lg:pl-8'}`}
               >
                 <CountUp
                   value={stat.value}
                   className="block text-3xl sm:text-4xl font-extralight tracking-tight text-ink-900"
                 />
-                <div className="label mt-2">{stat.label}</div>
+                <div className="label mt-2.5">{stat.label}</div>
               </div>
             ))}
           </div>
