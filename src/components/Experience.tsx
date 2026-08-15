@@ -25,7 +25,7 @@ function groupByCompany(exps: Exp[]): Group[] {
 
 /** Merged, de-duplicated stack for a whole tenure — roles at one company
  *  repeat most of their tools, so listing them per role is just noise. */
-function groupStack(entries: Exp[], limit = 9): string[] {
+function groupStack(entries: Exp[], limit = 12): string[] {
   const seen = new Set<string>();
   for (const e of entries) for (const t of e.technologies) seen.add(t);
   return [...seen].slice(0, limit);

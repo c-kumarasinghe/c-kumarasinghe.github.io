@@ -187,7 +187,7 @@ export const experiences: ExperienceItem[] = [
     period: 'Aug 2024 – Present',
     current: true,
     description: 'Lead backend development for blockchain & DeFi platforms. Built a BullMQ batch engine that cut reward processing time by 65%.',
-    technologies: ['NestJS', 'Node.js', 'Redis', 'RabbitMQ', 'BullMQ', 'Socket.IO', 'Docker', 'MongoDB', 'PostgreSQL'],
+    technologies: ['NestJS', 'Node.js', 'React.js', 'Next.js', 'Redis', 'RabbitMQ', 'BullMQ', 'Socket.IO', 'Docker', 'MongoDB', 'PostgreSQL'],
   },
   {
     id: 'inova-lead',
