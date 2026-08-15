@@ -9,8 +9,8 @@
     scroll-padding-top: 6.5rem;
   }
   body {
-    background-color: #0b0b0f;
-    color: #f5f5f7;
+    background-color: #f2efe9;
+    color: #14120f;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
     margin: 0;
@@ -22,22 +22,22 @@
     box-sizing: border-box;
   }
   ::selection {
-    background: #d2733f;
-    color: #060608;
+    background: #14120f;
+    color: #f2efe9;
   }
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0b0f;
+    background: #f2efe9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #24242c;
-    border: 3px solid #0b0b0f;
+    background: #c9c2b3;
+    border: 3px solid #f2efe9;
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #35353f;
+    background: #8a8478;
   }
   #root {
     width: 100%;
@@ -53,16 +53,18 @@
   .section-pad {
     @apply py-16 sm:py-20 lg:py-24;
   }
-  /* Contrast block. The page is already dark, so this lifts rather than
-     inverts — an elevated surface that gives the sections rhythm. */
+  /* Full-bleed dark block — inverts the paper palette for contrast/rhythm */
   .on-dark {
-    @apply bg-paper-300 text-ink-700;
+    @apply bg-ink-900 text-paper-300;
   }
   .on-dark .label {
-    @apply text-ink-500;
+    @apply text-ink-400;
   }
   .on-dark .rule {
-    @apply border-white/10;
+    @apply border-white/15;
+  }
+  .on-dark .btn-solid {
+    @apply bg-paper-100 text-ink-900 hover:bg-paper-400;
   }
   /* Hairline rules carry the layout — no card borders anywhere */
   .rule {
@@ -106,7 +108,7 @@
   }
   /* Editorial portrait treatment — desaturated to keep the page monochrome */
   .portrait {
-    filter: grayscale(1) contrast(1.08) brightness(0.92);
+    filter: grayscale(1) contrast(1.06);
   }
 }
 
