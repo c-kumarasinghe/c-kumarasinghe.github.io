@@ -66,6 +66,10 @@
   .on-dark .btn-solid {
     @apply bg-paper-100 text-ink-900 hover:bg-paper-400;
   }
+  .on-dark .btn-ghost {
+    @apply border-paper-100/30 text-paper-100
+           hover:border-paper-100 hover:bg-paper-100 hover:text-ink-900;
+  }
   /* Hairline rules carry the layout — no card borders anywhere */
   .rule {
     @apply border-t border-paper-400;

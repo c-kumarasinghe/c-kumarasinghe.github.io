@@ -37,6 +37,11 @@ export default function Navigation() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  /* Until the bar picks up its paper background it is sitting transparent on
+     top of the dark hero, so everything in it has to invert. Once scrolled the
+     bar is opaque paper again and the normal ink treatment applies. */
+  const overHero = !scrolled;
+
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
     document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
@@ -63,10 +68,20 @@ export default function Navigation() {
               }}
               className="flex items-center gap-3 group"
             >
-              <span className="flex items-center justify-center w-9 h-9 rounded-full border border-ink-900/25 text-xs font-medium tracking-tight text-ink-900 transition-colors duration-300 group-hover:bg-ink-900 group-hover:text-paper-100">
+              <span
+                className={`flex items-center justify-center w-9 h-9 rounded-full border text-xs font-medium tracking-tight transition-colors duration-300 ${
+                  overHero
+                    ? 'border-paper-100/30 text-paper-100 group-hover:bg-paper-100 group-hover:text-ink-900'
+                    : 'border-ink-900/25 text-ink-900 group-hover:bg-ink-900 group-hover:text-paper-100'
+                }`}
+              >
                 CK
               </span>
-              <span className="hidden sm:block text-sm font-medium tracking-tight text-ink-900">
+              <span
+                className={`hidden sm:block text-sm font-medium tracking-tight transition-colors duration-300 ${
+                  overHero ? 'text-paper-100' : 'text-ink-900'
+                }`}
+              >
                 Chathuranga Kumarasinghe
               </span>
             </a>
@@ -80,7 +95,13 @@ export default function Navigation() {
                     key={link.href}
                     onClick={() => handleNavClick(link.href)}
                     className={`relative text-sm transition-colors duration-300 ${
-                      active ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
+                      active
+                        ? overHero
+                          ? 'text-paper-50'
+                          : 'text-ink-900'
+                        : overHero
+                          ? 'text-paper-500 hover:text-paper-50'
+                          : 'text-ink-500 hover:text-ink-900'
                     }`}
                   >
                     {link.label}
@@ -99,7 +120,9 @@ export default function Navigation() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => handleNavClick('#contact')}
-                className="hidden md:inline-flex items-center gap-1.5 text-sm text-ink-900 link-wipe"
+                className={`hidden md:inline-flex items-center gap-1.5 text-sm link-wipe transition-colors duration-300 ${
+                  overHero ? 'text-paper-100' : 'text-ink-900'
+                }`}
               >
                 Get in touch
                 <span aria-hidden className="text-xs">&#8599;</span>
@@ -113,11 +136,11 @@ export default function Navigation() {
               >
                 <motion.span
                   animate={menuOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-px bg-ink-900 origin-center"
+                  className={`block w-5 h-px origin-center ${overHero ? 'bg-paper-100' : 'bg-ink-900'}`}
                 />
                 <motion.span
                   animate={menuOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
-                  className="block w-5 h-px bg-ink-900 origin-center"
+                  className={`block w-5 h-px origin-center ${overHero ? 'bg-paper-100' : 'bg-ink-900'}`}
                 />
               </button>
             </div>
