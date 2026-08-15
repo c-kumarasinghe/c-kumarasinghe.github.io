@@ -71,15 +71,14 @@ export default function Hero() {
         initial={reduced ? false : { clipPath: 'inset(0 0 100% 0)' }}
         animate={{ clipPath: 'inset(0 0 0% 0)' }}
         transition={{ duration: 1.4, ease: EASE, delay: 0.2 }}
-        /* starts below the header so the nav never sits on top of the image */
-        className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden"
+        className="hidden lg:block absolute right-0 top-0 bottom-0 w-[44%] xl:w-[42%] overflow-hidden"
         /* Dissolve the two edges that meet the page. Without this the photo's
            studio backdrop ends on a visible rectangle against the ground. */
         style={{
           maskImage:
-            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to top, transparent 0%, black 14%)',
+            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to bottom, transparent 0%, black 9%, black 88%, transparent 100%)',
           WebkitMaskImage:
-            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to top, transparent 0%, black 14%)',
+            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to bottom, transparent 0%, black 9%, black 88%, transparent 100%)',
           maskComposite: 'intersect',
           WebkitMaskComposite: 'source-in',
         }}
@@ -105,17 +104,35 @@ export default function Hero() {
         <span className="vertical-label font-mono text-[0.688rem] text-ink-400">2026</span>
       </div>
 
-      <div className="shell relative z-10 flex-1 flex flex-col justify-center pt-32 pb-10 lg:pt-40 lg:pb-16">
+      <div className="shell relative z-10 flex-1 flex flex-col justify-center pt-28 pb-10 lg:pt-24 lg:pb-16">
         <motion.div
           style={reduced || !isDesktop ? undefined : { y: textY, opacity: textFade }}
           className="lg:max-w-[54%]"
         >
+          {/* ── Stat pairs ── */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
+            className="flex flex-wrap gap-x-10 gap-y-4 mb-7 lg:mb-9"
+          >
+            {stats.slice(0, 3).map((stat) => (
+              <div key={stat.label}>
+                <CountUp
+                  value={stat.value}
+                  className="block text-2xl sm:text-3xl font-light tracking-tight text-ink-900"
+                />
+                <div className="label mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+
           {/* ── Where I am ── */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-            className="mb-7 lg:mb-9"
+            className="mb-10 lg:mb-[7.5rem]"
           >
             <span className="label inline-flex items-center gap-2 text-ink-500">
               <svg
@@ -133,24 +150,6 @@ export default function Hero() {
               </svg>
               Dubai, United Arab Emirates
             </span>
-          </motion.div>
-
-          {/* ── Stat pairs ── */}
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
-            className="flex flex-wrap gap-x-10 gap-y-4 mb-10 lg:mb-14"
-          >
-            {stats.slice(0, 3).map((stat) => (
-              <div key={stat.label}>
-                <CountUp
-                  value={stat.value}
-                  className="block text-2xl sm:text-3xl font-light tracking-tight text-ink-900"
-                />
-                <div className="label mt-1">{stat.label}</div>
-              </div>
-            ))}
           </motion.div>
 
           {/* ── Headline ── */}
