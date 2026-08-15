@@ -72,7 +72,17 @@ export default function Hero() {
         animate={{ clipPath: 'inset(0 0 0% 0)' }}
         transition={{ duration: 1.4, ease: EASE, delay: 0.2 }}
         /* starts below the header so the nav never sits on top of the image */
-        className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden border-l border-white/10"
+        className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden"
+        /* Dissolve the two edges that meet the page. Without this the photo's
+           studio backdrop ends on a visible rectangle against the ground. */
+        style={{
+          maskImage:
+            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to top, transparent 0%, black 14%)',
+          WebkitMaskImage:
+            'linear-gradient(to right, transparent 0%, black 26%), linear-gradient(to top, transparent 0%, black 14%)',
+          maskComposite: 'intersect',
+          WebkitMaskComposite: 'source-in',
+        }}
       >
         <motion.img
           src="/profile.jpg"
@@ -198,6 +208,14 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, ease: EASE, delay: 0.4 }}
             className="overflow-hidden"
+            /* Same dissolve as the desktop frame — here it is the top and
+               bottom edges that meet the page. */
+            style={{
+              maskImage:
+                'linear-gradient(to bottom, transparent 0%, black 13%, black 87%, transparent 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to bottom, transparent 0%, black 13%, black 87%, transparent 100%)',
+            }}
           >
             <img
               src="/profile.jpg"

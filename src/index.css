@@ -117,7 +117,7 @@
   }
   /* Editorial portrait treatment — desaturated to keep the page monochrome */
   .portrait {
-    filter: grayscale(1) contrast(1.12) brightness(1.08);
+    filter: grayscale(1) contrast(1.06) brightness(0.94);
   }
 }
 
