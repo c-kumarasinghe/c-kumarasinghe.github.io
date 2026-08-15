@@ -84,6 +84,8 @@ export default function Experience() {
             const span = groupSpan(group.entries);
             const stack = groupStack(group.entries);
             const current = group.entries[0].current;
+            // More than one role at the same company is a promotion ladder.
+            const ladder = group.entries.length > 1;
             // Odd tenures mirror, so the column reads as a zig-zag down the rail.
             const flip = gi % 2 === 1;
 
@@ -134,18 +136,40 @@ export default function Experience() {
                   <div
                     className={flip ? 'lg:order-1 lg:pr-4' : 'lg:order-2 lg:pl-4'}
                   >
-                    <div className="space-y-5">
-                      {group.entries.map((exp) => (
-                        <div key={exp.id}>
-                          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-                            <h4 className="text-base font-medium text-ink-900">{exp.role}</h4>
-                            <span className="font-mono text-[0.688rem] text-ink-400">
-                              {exp.period}
-                            </span>
+                    {/* Roles run newest-first, so a tenure with more than one
+                        is a promotion ladder: a rail links them, and only the
+                        most recent carries a filled marker. */}
+                    <div className={ladder ? 'relative pl-6' : ''}>
+                      {ladder && (
+                        <span
+                          aria-hidden
+                          className="absolute left-[3px] top-2 bottom-2 w-px bg-paper-400"
+                        />
+                      )}
+
+                      {group.entries.map((exp, ri) => (
+                        <div key={exp.id} className={ri > 0 ? 'mt-5' : ''}>
+                          <div className="relative">
+                            {ladder && (
+                              <span
+                                aria-hidden
+                                className={`absolute left-[-21px] top-[0.42rem] w-[7px] h-[7px] rounded-full -translate-x-1/2 border ${
+                                  ri === 0
+                                    ? 'bg-ink-900 border-ink-900'
+                                    : 'bg-paper-200 border-ink-400'
+                                }`}
+                              />
+                            )}
+                            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+                              <h4 className="text-base font-medium text-ink-900">{exp.role}</h4>
+                              <span className="font-mono text-[0.688rem] text-ink-400">
+                                {exp.period}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
+                              {exp.description}
+                            </p>
                           </div>
-                          <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
-                            {exp.description}
-                          </p>
                         </div>
                       ))}
                     </div>
