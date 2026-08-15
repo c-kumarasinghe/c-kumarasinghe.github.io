@@ -6,6 +6,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /**
  * Counts up to a numeric value when scrolled into view.
  * Accepts decorated strings like "12+" and preserves the non-digit suffix.
+ *
+ * Deliberately `once: true` while the other reveals replay — a figure that
+ * resets to 0 and recounts every time it is passed reads as a glitch, not as
+ * motion, and the stat band is passed often.
  */
 export function CountUp({ value, className = '' }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -45,6 +49,9 @@ export function CountUp({ value, className = '' }: { value: string; className?: 
 /**
  * Masked word-by-word reveal — the signature motion of the page.
  * Each word sits in an overflow-hidden box and slides up from below the mask.
+ *
+ * Replays: `useInView` runs without `once`, so the words drop back behind the
+ * mask on exit and reveal again on re-entry, in either scroll direction.
  */
 export function SplitText({
   text,
@@ -60,7 +67,7 @@ export function SplitText({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-12% 0px' });
+  const inView = useInView(ref, { margin: '-12% 0px' });
   const reduced = useReducedMotion();
   const words = text.split(' ');
 
@@ -101,7 +108,7 @@ export function Reveal({
   y?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-8% 0px' });
+  const inView = useInView(ref, { margin: '-8% 0px' });
   const reduced = useReducedMotion();
 
   return (
@@ -109,7 +116,7 @@ export function Reveal({
       ref={ref}
       className={className}
       initial={reduced ? false : { opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : undefined}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: 0.8, ease: EASE, delay }}
     >
       {children}
@@ -120,7 +127,7 @@ export function Reveal({
 /** A hairline rule that draws itself from left to right when scrolled into view. */
 export function RuleDraw({ className = '', delay = 0 }: { className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-5% 0px' });
+  const inView = useInView(ref, { margin: '-5% 0px' });
   const reduced = useReducedMotion();
 
   return (
@@ -128,7 +135,7 @@ export function RuleDraw({ className = '', delay = 0 }: { className?: string; de
       <motion.div
         className="h-px w-full bg-ink-900/25 origin-left"
         initial={reduced ? false : { scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : undefined}
+        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 1.1, ease: EASE, delay }}
       />
     </div>
