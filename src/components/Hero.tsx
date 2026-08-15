@@ -72,7 +72,7 @@ export default function Hero() {
         animate={{ clipPath: 'inset(0 0 0% 0)' }}
         transition={{ duration: 1.4, ease: EASE, delay: 0.2 }}
         /* starts below the header so the nav never sits on top of the image */
-        className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden"
+        className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden border-l border-white/10"
       >
         <motion.img
           src="/profile.jpg"
