@@ -80,7 +80,7 @@ export default function About() {
 
         {/* Stat band */}
         <Reveal className="mt-12 lg:mt-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-paper-400">
+          <div className="grid grid-cols-2 lg:grid-cols-5 border-t border-paper-400">
             {stats.map((stat, i) => (
               <div
                 key={stat.label}

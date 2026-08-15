@@ -73,6 +73,9 @@ export const personalInfo = {
 // ── Stats ──────────────────────────────────────────────────
 export const stats: StatItem[] = [
   { value: '12+', label: 'Years experience' },
+  /* Reach is the strongest number here, so it sits second and lands in the
+     hero's first three. */
+  { value: '10M+', label: 'Users reached' },
   { value: '15+', label: 'Engineers led' },
   { value: '20+', label: 'Projects shipped' },
   { value: '5+', label: 'Industry domains' },
