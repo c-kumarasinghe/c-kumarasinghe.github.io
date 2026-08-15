@@ -31,6 +31,51 @@ function groupStack(entries: Exp[], limit = 12): string[] {
   return [...seen].slice(0, limit);
 }
 
+/* The chips are tiered rather than uniform so the stack reads as a hierarchy
+   at a glance: the languages and frameworks it was built with, then the data
+   stores and message brokers behind it, then everything else — platform,
+   tooling and baseline web tech, which shouldn't shout. Anything unrecognised
+   lands in that quiet third tier, which is the safe default. */
+const BUILT_WITH = new Set([
+  'NestJS',
+  'Node.js',
+  'Express.js',
+  'React.js',
+  'Next.js',
+  'React Native',
+  'TypeScript',
+  'JavaScript',
+  'PHP',
+  'PHP Laravel',
+  'PHP Yii',
+  'Laravel',
+  'TypeORM',
+  'Prisma',
+]);
+
+const RUNS_ON = new Set([
+  'MongoDB',
+  'MySQL',
+  'PostgreSQL',
+  'Redis',
+  'RabbitMQ',
+  'BullMQ',
+  'Socket.IO',
+  'Apache Kafka',
+]);
+
+const CHIP_TIER: Record<'built' | 'data' | 'rest', string> = {
+  built: 'bg-ink-900 border-ink-900 text-paper-100',
+  data: 'border-ink-900/25 text-ink-800',
+  rest: 'border-paper-400 text-ink-500',
+};
+
+function chipClass(tech: string): string {
+  if (BUILT_WITH.has(tech)) return CHIP_TIER.built;
+  if (RUNS_ON.has(tech)) return CHIP_TIER.data;
+  return CHIP_TIER.rest;
+}
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function parseDate(s: string): Date {
@@ -181,7 +226,9 @@ export default function Experience() {
                       {stack.map((tech) => (
                         <span
                           key={tech}
-                          className="font-mono text-[0.625rem] tracking-[0.08em] text-ink-600 border border-paper-400 px-2.5 py-1"
+                          className={`font-mono text-[0.625rem] tracking-[0.08em] border px-2.5 py-1 ${chipClass(
+                            tech
+                          )}`}
                         >
                           {tech}
                         </span>
