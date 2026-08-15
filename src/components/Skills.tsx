@@ -12,10 +12,10 @@ export default function Skills() {
           {skillCategories.map((category, i) => (
             <Reveal key={category.id} delay={i * 0.04}>
               <div className="grid md:grid-cols-12 gap-y-1.5 md:gap-x-8 py-[1.15rem] border-t border-white/15 last:border-b">
-                <h3 className="md:col-span-4 text-lg font-light tracking-tight text-paper-100">
+                <h3 className="md:col-span-4 text-lg font-light tracking-tight text-ink-900">
                   {category.label}
                 </h3>
-                <p className="md:col-span-8 text-sm sm:text-base font-light leading-relaxed text-paper-500">
+                <p className="md:col-span-8 text-sm sm:text-base font-light leading-relaxed text-ink-9000">
                   {category.skills.join('  ·  ')}
                 </p>
               </div>

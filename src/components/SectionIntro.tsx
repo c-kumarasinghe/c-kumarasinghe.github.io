@@ -20,7 +20,7 @@ export default function SectionIntro({
     <div className={className}>
       <Reveal>
         <div className="flex items-baseline gap-4">
-          <span className={`font-mono text-[0.688rem] ${dark ? 'text-paper-500' : 'text-accent'}`}>
+          <span className={`font-mono text-[0.688rem] ${dark ? 'text-ink-9000' : 'text-accent'}`}>
             ({index})
           </span>
           <span className="label">{label}</span>
@@ -28,7 +28,7 @@ export default function SectionIntro({
       </Reveal>
       <h2
         className={`text-section font-extralight mt-6 max-w-3xl ${
-          dark ? 'text-paper-100' : 'text-ink-900'
+          dark ? 'text-ink-900' : 'text-ink-900'
         }`}
       >
         <SplitText text={headline} />
