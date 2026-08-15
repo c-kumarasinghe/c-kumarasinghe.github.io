@@ -1,6 +1,8 @@
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion, type Variants } from 'framer-motion';
 import { experiences } from '../data/portfolioData';
 import SectionIntro from './SectionIntro';
-import { Reveal } from './Reveal';
+import { useScrollDirection } from '../hooks/useScrollDirection';
 
 type Exp = (typeof experiences)[0];
 
@@ -30,6 +32,29 @@ function groupStack(entries: Exp[], limit = 12): string[] {
   for (const e of entries) for (const t of e.technologies) seen.add(t);
   return [...seen].slice(0, limit);
 }
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/* Each tenure arrives as a short ladder: the marker pops on the rail, then the
+   company, then the roles beside it. Coming back up the sequence collapses to
+   a single quick fade — the reader has already seen it. */
+const ROW: Variants = {
+  hidden: {},
+  down: { transition: { staggerChildren: 0.13, delayChildren: 0.05 } },
+  up: { transition: { staggerChildren: 0 } },
+};
+
+const RISE: Variants = {
+  hidden: { opacity: 0, y: 26 },
+  down: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+  up: { opacity: 1, y: 0, transition: { duration: 0.28, ease: 'easeOut' } },
+};
+
+const POP: Variants = {
+  hidden: { scale: 0, opacity: 0 },
+  down: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 480, damping: 22 } },
+  up: { scale: 1, opacity: 1, transition: { duration: 0.2 } },
+};
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -66,6 +91,19 @@ function groupSpan(entries: Exp[]): { range: string; duration: string } {
 
 export default function Experience() {
   const groups = groupByCompany(experiences);
+  const reduced = useReducedMotion();
+  const show = useScrollDirection() === 'up' ? 'up' : 'down';
+
+  /* The rail draws itself as the section passes. Safe to use a target-relative
+     scroll here — nothing between this element and the document scroller sets
+     `overflow-hidden`, which would otherwise be resolved as the scroll
+     container and pin progress at 0. */
+  const railRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: railRef,
+    offset: ['start 0.8', 'end 0.55'],
+  });
+  const railDraw = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <section id="experience" className="section-pad">
@@ -74,10 +112,16 @@ export default function Experience() {
 
         {/* Tenures alternate across a centre rail. Below lg the rail moves to
             the left edge and everything stacks in one readable column. */}
-        <div className="relative mt-12 lg:mt-20">
+        <div ref={railRef} className="relative mt-12 lg:mt-20">
           <span
             aria-hidden
             className="absolute top-2 bottom-2 w-px bg-paper-400 left-[3px] lg:left-1/2 lg:-translate-x-1/2"
+          />
+          {/* the lit portion, tracking how far down the section you are */}
+          <motion.span
+            aria-hidden
+            style={reduced ? undefined : { scaleY: railDraw }}
+            className="absolute top-2 bottom-2 w-px bg-ink-400 origin-top left-[3px] lg:left-1/2 lg:-translate-x-1/2"
           />
 
           {groups.map((group, gi) => {
@@ -90,17 +134,25 @@ export default function Experience() {
             const flip = gi % 2 === 1;
 
             return (
-              <Reveal key={group.company + gi} delay={gi * 0.04}>
-                <div className="relative pl-8 lg:pl-0 py-9 lg:py-11 grid lg:grid-cols-2 lg:gap-x-20 gap-y-6">
-                  <span
-                    aria-hidden
-                    className={`absolute top-[2.9rem] lg:top-[4.15rem] w-[9px] h-[9px] rounded-full -translate-x-1/2 left-[3px] lg:left-1/2 border ${
-                      current ? 'bg-accent border-accent' : 'bg-paper-200 border-ink-400'
-                    }`}
-                  />
+              <motion.div
+                key={group.company + gi}
+                variants={ROW}
+                initial={reduced ? false : 'hidden'}
+                whileInView={show}
+                viewport={{ margin: '-12% 0px' }}
+                className="relative pl-8 lg:pl-0 py-9 lg:py-11 grid lg:grid-cols-2 lg:gap-x-20 gap-y-6"
+              >
+                <motion.span
+                  aria-hidden
+                  variants={POP}
+                  className={`absolute top-[2.9rem] lg:top-[4.15rem] w-[9px] h-[9px] rounded-full -translate-x-1/2 left-[3px] lg:left-1/2 border ${
+                    current ? 'bg-accent border-accent' : 'bg-paper-200 border-ink-400'
+                  }`}
+                />
 
                   {/* ── Company ── */}
-                  <div
+                  <motion.div
+                    variants={RISE}
                     className={
                       flip
                         ? 'lg:order-2 lg:text-left lg:pl-4'
@@ -148,10 +200,11 @@ export default function Experience() {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* ── Roles ── */}
-                  <div
+                  <motion.div
+                    variants={RISE}
                     className={flip ? 'lg:order-1 lg:pr-4' : 'lg:order-2 lg:pl-4'}
                   >
                     {/* Roles run newest-first, so a tenure with more than one
@@ -211,9 +264,8 @@ export default function Experience() {
                         </div>
                       ))}
                     </div>
-                  </div>
-                </div>
-              </Reveal>
+                  </motion.div>
+                </motion.div>
             );
           })}
         </div>

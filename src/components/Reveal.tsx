@@ -1,56 +1,8 @@
 import { useRef, useState, useEffect, type ReactNode } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useScrollDirection } from '../hooks/useScrollDirection';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-/* ── Scroll direction ──────────────────────────────────────────────────────
-   Replaying the full staggered cascade on the way back up is too busy: the
-   reader has already seen that content and is now travelling against it. So
-   downward re-entry keeps the full reveal, and upward re-entry gets a short
-   simultaneous fade instead — present, but quiet.
-
-   One listener for the whole page, shared by every reveal on it, rather than
-   one per component. */
-type Dir = 'up' | 'down';
-
-let scrollDir: Dir = 'down';
-const dirSubscribers = new Set<(d: Dir) => void>();
-
-if (typeof window !== 'undefined') {
-  let last = window.scrollY;
-  let queued = false;
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        const y = window.scrollY;
-        // ignore jitter, and momentum bounce past the ends of the document
-        if (Math.abs(y - last) < 6) return;
-        const next: Dir = y > last ? 'down' : 'up';
-        last = y;
-        if (next !== scrollDir) {
-          scrollDir = next;
-          dirSubscribers.forEach((fn) => fn(next));
-        }
-      });
-    },
-    { passive: true }
-  );
-}
-
-function useScrollDirection(): Dir {
-  const [dir, setDir] = useState<Dir>(scrollDir);
-  useEffect(() => {
-    dirSubscribers.add(setDir);
-    return () => {
-      dirSubscribers.delete(setDir);
-    };
-  }, []);
-  return dir;
-}
 
 /**
  * Counts up to a numeric value when scrolled into view.
