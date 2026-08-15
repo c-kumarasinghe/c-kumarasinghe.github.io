@@ -65,7 +65,7 @@ export default function Hero() {
   }, [reduced, mobileImgFade]);
 
   return (
-    <section id="hero" className="on-dark relative min-h-screen flex flex-col overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
       {/* ── Full-bleed portrait, hard-edged against the paper ── */}
       <motion.div
         initial={reduced ? false : { clipPath: 'inset(0 0 100% 0)' }}
@@ -111,7 +111,7 @@ export default function Hero() {
               <div key={stat.label}>
                 <CountUp
                   value={stat.value}
-                  className="block text-2xl sm:text-3xl font-light tracking-tight text-paper-50"
+                  className="block text-2xl sm:text-3xl font-light tracking-tight text-ink-900"
                 />
                 <div className="label mt-1">{stat.label}</div>
               </div>
@@ -119,7 +119,7 @@ export default function Hero() {
           </motion.div>
 
           {/* ── Headline ── */}
-          <h1 className="text-hero font-display font-normal text-paper-50">
+          <h1 className="text-hero font-display font-normal text-ink-900">
             <SplitText text="Hello." delay={0.35} duration={1.1} />
             <span className="sr-only">Chathuranga Kumarasinghe — Lead Software Engineer</span>
           </h1>
@@ -129,9 +129,9 @@ export default function Hero() {
             initial={reduced ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.95 }}
-            className="mt-8 lg:mt-10 max-w-xl text-base sm:text-lg font-light leading-relaxed text-paper-500"
+            className="mt-8 lg:mt-10 max-w-xl text-base sm:text-lg font-light leading-relaxed text-ink-600"
           >
-            <span className="text-paper-50">&mdash; I&rsquo;m {personalInfo.name},</span> a Lead
+            <span className="text-ink-900">&mdash; I&rsquo;m {personalInfo.name},</span> a Lead
             Software Engineer based in Dubai. I design scalable systems, solve complex engineering
             challenges, and lead teams to build reliable, high-impact products.
           </motion.p>
@@ -194,12 +194,12 @@ export default function Hero() {
         <div className="rule pt-5 flex flex-wrap items-center justify-between gap-4 lg:max-w-[54%]">
           <button
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-            className="label flex items-center gap-3 hover:text-paper-100 transition-colors duration-300"
+            className="label flex items-center gap-3 hover:text-ink-900 transition-colors duration-300"
           >
             Scroll down
-            <span className="relative block w-px h-7 bg-white/20 overflow-hidden" aria-hidden>
+            <span className="relative block w-px h-7 bg-paper-400 overflow-hidden" aria-hidden>
               <motion.span
-                className="absolute inset-x-0 top-0 h-3 bg-paper-100"
+                className="absolute inset-x-0 top-0 h-3 bg-ink-900"
                 animate={reduced ? undefined : { y: ['-120%', '340%'] }}
                 transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
               />
