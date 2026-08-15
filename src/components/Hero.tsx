@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo, stats, coreStack } from '../data/portfolioData';
 import { SplitText, CountUp } from './Reveal';
+import ShatterImage from './ShatterImage';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -26,10 +27,10 @@ export default function Hero() {
   const isDesktop = useIsDesktop();
   const { scrollY } = useScroll();
 
-  // Portrait drifts down slower than the page. Positive travel only — the image is
-  // scaled 1.12 from its top edge to crop the photographer's watermark, and moving
-  // down keeps that crop intact.
-  const imgY = useTransform(scrollY, [0, 900], ['0%', '8%']);
+  // The portrait sits whole at rest and breaks apart as you scroll away from the
+  // hero — horizontal bands sliding sideways, deliberately a different reading
+  // from the speaking band's vertical strips.
+  const portraitBreak = useTransform(scrollY, [0, 760], [0, 1]);
   const textY = useTransform(scrollY, [0, 900], ['0%', '22%']);
   const textFade = useTransform(scrollY, [0, 520], [1, 0]);
 
@@ -74,17 +75,31 @@ export default function Hero() {
         /* starts below the header so the nav never sits on top of the image */
         className="hidden lg:block absolute right-0 top-20 bottom-0 w-[44%] xl:w-[42%] overflow-hidden"
       >
-        <motion.img
-          src="/profile.jpg"
-          alt="Chathuranga Kumarasinghe"
-          className="w-full h-full object-cover portrait"
-          style={
-            reduced
-              ? { scale: 1.12, transformOrigin: 'top', objectPosition: 'center 18%' }
-              : { y: imgY, scale: 1.12, transformOrigin: 'top', objectPosition: 'center 18%' }
-          }
-          loading="eager"
-        />
+        {reduced ? (
+          <img
+            src="/profile.jpg"
+            alt="Chathuranga Kumarasinghe"
+            className="w-full h-full object-cover portrait scale-[1.12] origin-top"
+            style={{ objectPosition: 'center 18%' }}
+            loading="eager"
+          />
+        ) : (
+          /* scale-[1.12] from the top edge keeps the photographer's watermark
+             cropped out — every slice has to carry it. */
+          <ShatterImage
+            src="/profile.jpg"
+            alt="Chathuranga Kumarasinghe"
+            progress={portraitBreak}
+            stops={[0, 1]}
+            amounts={[0, 38]}
+            fan={[0, 4]}
+            pieces={6}
+            orientation="horizontal"
+            className="absolute inset-0"
+            imgClassName="portrait scale-[1.12] origin-top"
+            objectPosition="center 18%"
+          />
+        )}
       </motion.div>
 
       {/* ── Vertical edge labels ── */}
