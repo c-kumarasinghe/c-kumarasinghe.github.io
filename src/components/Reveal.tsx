@@ -1,12 +1,5 @@
 import { useRef, useState, useEffect, type ReactNode } from 'react';
-import {
-  motion,
-  useInView,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -90,75 +83,6 @@ export function SplitText({
             {word}
           </motion.span>
         </span>
-      ))}
-    </span>
-  );
-}
-
-/** One word of a ScrollHighlight — owns its own slice of the scroll range. */
-function HighlightWord({
-  children,
-  progress,
-  range,
-  dim,
-}: {
-  children: ReactNode;
-  progress: MotionValue<number>;
-  range: [number, number];
-  dim: number;
-}) {
-  const opacity = useTransform(progress, range, [dim, 1]);
-  return <motion.span style={{ opacity }}>{children}</motion.span>;
-}
-
-/**
- * Scroll-linked word highlight. The line starts dimmed and each word lifts to
- * full strength as it crosses the viewport — driven continuously by scroll
- * position rather than by a one-shot in-view trigger like SplitText.
- *
- * Words stay inline (no inline-block wrappers), so text flow and hyphenation
- * are exactly as they'd be without the effect.
- *
- * Do NOT place this inside an `overflow-hidden` ancestor: Framer Motion
- * resolves the nearest scrolling ancestor as the scroll container, so an
- * overflow-hidden parent pins progress at 0 and nothing ever brightens.
- */
-export function ScrollHighlight({
-  text,
-  className = '',
-  dim = 0.22,
-}: {
-  text: string;
-  className?: string;
-  /** Resting opacity before a word is reached. */
-  dim?: number;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 0.95', 'end 0.35'],
-  });
-
-  const words = text.split(' ');
-  const step = 1 / words.length;
-
-  // Reduced motion: full contrast, no scroll binding.
-  if (reduced) return <span className={className}>{text}</span>;
-
-  return (
-    <span ref={ref} className={className}>
-      {words.map((word, i) => (
-        <HighlightWord
-          key={`${word}-${i}`}
-          progress={scrollYProgress}
-          /* Ranges overlap so a band of words brightens together rather than
-             a single hard cursor sweeping across the line. */
-          range={[i * step, Math.min(i * step + step * 2.5, 1)]}
-          dim={dim}
-        >
-          {i < words.length - 1 ? `${word} ` : word}
-        </HighlightWord>
       ))}
     </span>
   );
