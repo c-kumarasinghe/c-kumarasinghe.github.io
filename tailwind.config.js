@@ -4,25 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm greige paper scale — not clinical white
+        /* Ground scale — deepest to most elevated. Neutrals carry a faint blue
+           bias so the near-blacks read as considered rather than switched-off,
+           and so the warm accent has something to sit against. */
         paper: {
-          50: '#FDFCFA',
-          100: '#F8F6F1',
-          200: '#F2EFE9', // page background
-          300: '#E9E5DC',
-          400: '#DDD8CC', // hairline
-          500: '#C9C2B3',
+          50: '#060608', // deepest well
+          100: '#08080B',
+          200: '#0B0B0F', // page background
+          300: '#131318', // elevated section block
+          400: '#24242C', // hairline
+          500: '#35353F', // stronger divider
         },
-        // Warm near-black neutral scale
+        /* Foreground scale — brightest to dimmest. Same class names as the
+           light build, so `text-ink-900` still means "the loudest text". */
         ink: {
-          900: '#14120F',
-          800: '#221F1A',
-          700: '#3D3931',
-          600: '#605B50',
-          500: '#8A8478',
-          400: '#ADA79A',
+          900: '#F5F5F7',
+          800: '#E6E6EA',
+          700: '#C6C6CF',
+          600: '#9C9CA8',
+          500: '#7C7C88',
+          400: '#6B6B78',
         },
-        accent: '#A8502A',
+        // Terracotta lifted until it holds its own against near-black
+        accent: '#D2733F',
       },
       fontFamily: {
         display: ['Instrument Serif', 'Georgia', 'serif'],

@@ -17,7 +17,7 @@ export default function Contact() {
       <div className="shell">
         <Reveal>
           <div className="flex items-baseline gap-4 mb-9">
-            <span className="font-mono text-[0.688rem] text-paper-500">(05)</span>
+            <span className="font-mono text-[0.688rem] text-ink-500">(05)</span>
             <span className="label">Contact</span>
           </div>
         </Reveal>
@@ -25,12 +25,12 @@ export default function Contact() {
         <div className="grid lg:grid-cols-12 gap-y-12 lg:gap-x-12 items-end">
           {/* The ask */}
           <div className="lg:col-span-7">
-            <h2 className="text-section font-extralight text-paper-50">
+            <h2 className="text-section font-extralight text-ink-900">
               <SplitText text="Let’s build something that lasts." />
             </h2>
 
             <Reveal delay={0.1}>
-              <p className="mt-7 max-w-md text-base font-light leading-relaxed text-paper-500">
+              <p className="mt-7 max-w-md text-base font-light leading-relaxed text-ink-500">
                 Open to lead engineering roles, consulting and technical partnerships. Email
                 reaches me fastest.
               </p>
@@ -57,12 +57,12 @@ export default function Contact() {
                   href={d.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-wipe text-paper-100 hover:text-paper-50 transition-colors duration-300"
+                  className="link-wipe text-ink-800 hover:text-ink-900 transition-colors duration-300"
                 >
                   {d.value}
                 </a>
               ) : (
-                <span className="text-paper-300">{d.value}</span>
+                <span className="text-ink-700">{d.value}</span>
               );
 
               return (

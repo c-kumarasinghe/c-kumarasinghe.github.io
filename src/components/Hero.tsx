@@ -95,7 +95,32 @@ export default function Hero() {
         <span className="vertical-label font-mono text-[0.688rem] text-ink-400">2026</span>
       </div>
 
-      <div className="shell relative z-10 flex-1 flex flex-col justify-center pt-32 pb-10 lg:pt-40 lg:pb-16">
+      {/* ── Where I am, stated plainly at the top of the page ── */}
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
+        className="shell relative z-20 pt-24 lg:pt-28"
+      >
+        <span className="label inline-flex items-center gap-2 text-ink-500">
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-3.5 h-3.5 text-accent flex-shrink-0"
+          >
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Dubai, United Arab Emirates
+        </span>
+      </motion.div>
+
+      <div className="shell relative z-10 flex-1 flex flex-col justify-center pt-8 pb-10 lg:pt-10 lg:pb-16">
         <motion.div
           style={reduced || !isDesktop ? undefined : { y: textY, opacity: textFade }}
           className="lg:max-w-[54%]"
