@@ -1,6 +1,6 @@
 import { personalInfo, stats, education, certifications } from '../data/portfolioData';
 import SectionIntro from './SectionIntro';
-import { Reveal, CountUp } from './Reveal';
+import { Reveal, CountUp, ScrollHighlight } from './Reveal';
 
 export default function About() {
   return (
@@ -12,7 +12,7 @@ export default function About() {
           {/* Bio */}
           <Reveal className="lg:col-span-6">
             <p className="text-lg sm:text-xl font-light leading-relaxed text-ink-800">
-              {personalInfo.bio}
+              <ScrollHighlight text={personalInfo.bio} />
             </p>
             <p className="mt-5 text-base font-light leading-relaxed text-ink-600">
               Currently leading backend engineering at{' '}

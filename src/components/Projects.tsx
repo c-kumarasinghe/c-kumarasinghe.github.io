@@ -1,6 +1,6 @@
 import { projects } from '../data/portfolioData';
 import SectionIntro from './SectionIntro';
-import { Reveal } from './Reveal';
+import { Reveal, ScrollHighlight } from './Reveal';
 
 export default function Projects() {
   return (
@@ -29,7 +29,8 @@ export default function Projects() {
                     <span className="font-mono text-[0.688rem] text-paper-500">{project.year}</span>
                   </div>
                   <p className="mt-3 md:ml-8 text-sm font-light leading-relaxed text-paper-500 max-w-sm">
-                    {project.description}
+                    {/* Higher floor than on paper — pale text on ink disappears below ~0.3 */}
+                    <ScrollHighlight text={project.description} dim={0.35} />
                   </p>
                 </div>
 
