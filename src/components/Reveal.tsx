@@ -3,6 +3,55 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/* ── Scroll direction ──────────────────────────────────────────────────────
+   Replaying the full staggered cascade on the way back up is too busy: the
+   reader has already seen that content and is now travelling against it. So
+   downward re-entry keeps the full reveal, and upward re-entry gets a short
+   simultaneous fade instead — present, but quiet.
+
+   One listener for the whole page, shared by every reveal on it, rather than
+   one per component. */
+type Dir = 'up' | 'down';
+
+let scrollDir: Dir = 'down';
+const dirSubscribers = new Set<(d: Dir) => void>();
+
+if (typeof window !== 'undefined') {
+  let last = window.scrollY;
+  let queued = false;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        const y = window.scrollY;
+        // ignore jitter, and momentum bounce past the ends of the document
+        if (Math.abs(y - last) < 6) return;
+        const next: Dir = y > last ? 'down' : 'up';
+        last = y;
+        if (next !== scrollDir) {
+          scrollDir = next;
+          dirSubscribers.forEach((fn) => fn(next));
+        }
+      });
+    },
+    { passive: true }
+  );
+}
+
+function useScrollDirection(): Dir {
+  const [dir, setDir] = useState<Dir>(scrollDir);
+  useEffect(() => {
+    dirSubscribers.add(setDir);
+    return () => {
+      dirSubscribers.delete(setDir);
+    };
+  }, []);
+  return dir;
+}
+
 /**
  * Counts up to a numeric value when scrolled into view.
  * Accepts decorated strings like "12+" and preserves the non-digit suffix.
@@ -69,6 +118,7 @@ export function SplitText({
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { margin: '-12% 0px' });
   const reduced = useReducedMotion();
+  const up = useScrollDirection() === 'up';
   const words = text.split(' ');
 
   if (reduced) return <span className={className}>{text}</span>;
@@ -85,7 +135,13 @@ export function SplitText({
             className="inline-block"
             initial={{ y: '115%' }}
             animate={inView ? { y: '0%' } : { y: '115%' }}
-            transition={{ duration, ease: EASE, delay: delay + i * stagger }}
+            /* Coming back up: every word moves at once, quickly, with no
+               entrance delay — the shape of the reveal without the cascade. */
+            transition={
+              up
+                ? { duration: 0.4, ease: EASE }
+                : { duration, ease: EASE, delay: delay + i * stagger }
+            }
           >
             {word}
           </motion.span>
@@ -110,14 +166,17 @@ export function Reveal({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: '-8% 0px' });
   const reduced = useReducedMotion();
+  const up = useScrollDirection() === 'up';
 
   return (
     <motion.div
       ref={ref}
       className={className}
       initial={reduced ? false : { opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
+      /* No rise and no stagger delay on the way up — the blocks simply come
+         back, rather than re-performing in sequence. */
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: up ? 0 : y }}
+      transition={up ? { duration: 0.3, ease: 'easeOut' } : { duration: 0.8, ease: EASE, delay }}
     >
       {children}
     </motion.div>
@@ -129,14 +188,15 @@ export function RuleDraw({ className = '', delay = 0 }: { className?: string; de
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: '-5% 0px' });
   const reduced = useReducedMotion();
+  const up = useScrollDirection() === 'up';
 
   return (
     <div ref={ref} className={`h-px w-full bg-paper-400 origin-left ${className}`}>
       <motion.div
         className="h-px w-full bg-ink-900/25 origin-left"
         initial={reduced ? false : { scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 1.1, ease: EASE, delay }}
+        animate={inView ? { scaleX: 1 } : { scaleX: up ? 1 : 0 }}
+        transition={up ? { duration: 0.25, ease: 'easeOut' } : { duration: 1.1, ease: EASE, delay }}
       />
     </div>
   );
