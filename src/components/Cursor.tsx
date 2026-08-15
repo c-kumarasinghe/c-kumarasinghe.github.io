@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * A trailing cursor: a small solid dot pinned to the pointer, and a ring that
- * chases it with easing. The ring swells and the dot shrinks over anything
- * interactive.
+ * The pointer as a light source: a soft warm bloom trailing the cursor across
+ * the ambient field, with a small precise dot pinned to the actual position.
+ * Over anything interactive the bloom tightens and brightens.
  *
  * Position is written straight to the elements inside a rAF loop rather than
  * held in React state — this runs every frame, and re-rendering the tree on
@@ -70,9 +70,9 @@ export default function Cursor() {
 
     const tick = () => {
       // Exponential ease — the ring is always chasing, never quite arriving.
-      rx += (mx - rx) * 0.16;
-      ry += (my - ry) * 0.16;
-      const scale = hovering ? 1.9 : 1;
+      rx += (mx - rx) * 0.09;
+      ry += (my - ry) * 0.09;
+      const scale = hovering ? 0.62 : 1;
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(${scale})`;
       dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(${
         hovering ? 0.4 : 1
@@ -98,13 +98,18 @@ export default function Cursor() {
       <div
         ref={ringRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] w-9 h-9 rounded-full border border-ink-900/40 opacity-0 transition-opacity duration-300 mix-blend-difference"
-        style={{ willChange: 'transform' }}
+        className="pointer-events-none fixed left-0 top-0 z-[100] w-[22rem] h-[22rem] rounded-full opacity-0 transition-opacity duration-500"
+        style={{
+          willChange: 'transform',
+          mixBlendMode: 'screen',
+          background:
+            'radial-gradient(circle, rgba(210,115,63,0.22) 0%, rgba(210,115,63,0.07) 38%, rgba(210,115,63,0) 68%)',
+        }}
       />
       <div
         ref={dotRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300"
+        className="pointer-events-none fixed left-0 top-0 z-[100] w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 mix-blend-screen"
         style={{ willChange: 'transform' }}
       />
     </>

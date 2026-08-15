@@ -1,5 +1,6 @@
 import Navigation from './components/Navigation';
 import Cursor from './components/Cursor';
+import Atmosphere from './components/Atmosphere';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -12,6 +13,7 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <>
+      <Atmosphere />
       <Cursor />
       <Navigation />
       <main>

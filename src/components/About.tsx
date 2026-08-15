@@ -42,11 +42,18 @@ export default function About() {
                 className="flex items-start gap-4 py-4 border-t border-paper-400 last:border-b"
               >
                 {edu.logo && (
-                  <img
-                    src={edu.logo}
-                    alt={edu.institution}
-                    className="w-10 h-10 object-contain flex-shrink-0 mt-0.5"
-                  />
+                  /* University marks are third-party artwork drawn for white
+                     stationery — navy and crimson on transparent — so they go
+                     muddy straight onto the dark ground. They get their own
+                     light plate instead. The colour is a literal rather than a
+                     token: it must stay light whatever the page theme does. */
+                  <span className="flex-shrink-0 mt-0.5 w-11 h-11 rounded-md bg-[#F4F3F0] flex items-center justify-center p-1.5 ring-1 ring-white/10">
+                    <img
+                      src={edu.logo}
+                      alt={edu.institution}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </span>
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="text-base font-normal leading-snug text-ink-900">
