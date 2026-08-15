@@ -83,6 +83,11 @@
     @apply font-mono text-[0.688rem] uppercase tracking-[0.16em] text-ink-500;
   }
   /* Vertical rotated edge label, reading bottom-to-top */
+  /* Only applied while the dot cursor is mounted — see Cursor.tsx. */
+  .cursor-dot-active,
+  .cursor-dot-active * {
+    cursor: none;
+  }
   .vertical-label {
     writing-mode: vertical-rl;
     transform: rotate(180deg);

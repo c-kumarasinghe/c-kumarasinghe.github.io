@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * A small soft white glow trailing the pointer, with a fine dot pinned to its
- * actual position. Restrained on purpose — it lifts the ground very slightly
- * rather than lighting it.
+ * A single dot in place of the system pointer. It grows over anything
+ * interactive and does nothing else.
  *
- * Position is written straight to the elements inside a rAF loop rather than
- * held in React state — this runs every frame, and re-rendering the tree on
+ * Position is written straight to the node inside a rAF loop rather than held
+ * in React state — this runs every frame, and re-rendering the tree on
  * mousemove would be far too expensive.
  *
- * Never shown for coarse pointers (touch) or when reduced motion is asked for,
- * and it always sits behind `pointer-events: none`, so the real cursor and all
- * native hit-testing are untouched.
+ * Skipped for coarse pointers and reduced motion, in which case the native
+ * cursor is left alone. It is `pointer-events: none` throughout, so hit
+ * testing is never affected.
  */
 export default function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -31,19 +29,26 @@ export default function Cursor() {
     };
   }, []);
 
+  /* Hide the native pointer only while the dot is actually mounted and
+     running, so a failure here can never leave a machine with no visible
+     cursor at all. */
+  useEffect(() => {
+    if (!enabled) return;
+    document.body.classList.add('cursor-dot-active');
+    return () => document.body.classList.remove('cursor-dot-active');
+  }, [enabled]);
+
   useEffect(() => {
     if (!enabled) return;
     const dot = dotRef.current;
-    const ring = ringRef.current;
-    if (!dot || !ring) return;
+    if (!dot) return;
 
-    // Start off-screen so nothing flashes at 0,0 before the first move.
     let mx = -100;
     let my = -100;
-    let rx = mx;
-    let ry = my;
+    let dx = mx;
+    let dy = my;
     let hovering = false;
-    let visible = false;
+    let seen = false;
     let raf = 0;
 
     const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, summary, label';
@@ -51,31 +56,27 @@ export default function Cursor() {
     const onMove = (e: PointerEvent) => {
       mx = e.clientX;
       my = e.clientY;
-      if (!visible) {
-        visible = true;
-        // Jump the ring to the pointer on first sight, so it doesn't fly in.
-        rx = mx;
-        ry = my;
+      if (!seen) {
+        // Jump to the pointer on first sight so it doesn't streak in from 0,0.
+        seen = true;
+        dx = mx;
+        dy = my;
         dot.style.opacity = '1';
-        ring.style.opacity = '1';
       }
       hovering = !!(e.target as Element)?.closest?.(INTERACTIVE);
     };
 
     const onLeave = () => {
-      visible = false;
+      seen = false;
       dot.style.opacity = '0';
-      ring.style.opacity = '0';
     };
 
     const tick = () => {
-      // Exponential ease — the ring is always chasing, never quite arriving.
-      rx += (mx - rx) * 0.15;
-      ry += (my - ry) * 0.15;
-      const scale = hovering ? 1.45 : 1;
-      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(${scale})`;
-      dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(${
-        hovering ? 0.4 : 1
+      // Just enough easing to feel attached rather than glued.
+      dx += (mx - dx) * 0.32;
+      dy += (my - dy) * 0.32;
+      dot.style.transform = `translate3d(${dx}px, ${dy}px, 0) translate(-50%, -50%) scale(${
+        hovering ? 2.6 : 1
       })`;
       raf = requestAnimationFrame(tick);
     };
@@ -94,24 +95,11 @@ export default function Cursor() {
   if (!enabled) return null;
 
   return (
-    <>
-      <div
-        ref={ringRef}
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] w-28 h-28 rounded-full opacity-0 transition-opacity duration-500"
-        style={{
-          willChange: 'transform',
-          mixBlendMode: 'screen',
-          background:
-            'radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.035) 45%, rgba(255,255,255,0) 70%)',
-        }}
-      />
-      <div
-        ref={dotRef}
-        aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] w-1 h-1 rounded-full bg-white/70 opacity-0 transition-opacity duration-300 mix-blend-screen"
-        style={{ willChange: 'transform' }}
-      />
-    </>
+    <div
+      ref={dotRef}
+      aria-hidden
+      className="pointer-events-none fixed left-0 top-0 z-[100] w-2.5 h-2.5 rounded-full bg-white opacity-0 mix-blend-difference transition-opacity duration-300"
+      style={{ willChange: 'transform' }}
+    />
   );
 }

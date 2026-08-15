@@ -116,7 +116,7 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
             className="flex flex-wrap gap-x-10 gap-y-4 mb-7 lg:mb-9"
           >
-            {stats.slice(0, 3).map((stat) => (
+            {stats.slice(0, 4).map((stat) => (
               <div key={stat.label}>
                 <CountUp
                   value={stat.value}
