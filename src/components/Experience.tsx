@@ -91,7 +91,7 @@ export default function Experience() {
 
             return (
               <Reveal key={group.company + gi} delay={gi * 0.04}>
-                <div className="relative pl-8 lg:pl-0 py-9 lg:py-14 grid lg:grid-cols-2 lg:gap-x-20 gap-y-6">
+                <div className="relative pl-8 lg:pl-0 py-9 lg:py-11 grid lg:grid-cols-2 lg:gap-x-20 gap-y-6">
                   <span
                     aria-hidden
                     className={`absolute top-[2.9rem] lg:top-[4.15rem] w-[9px] h-[9px] rounded-full -translate-x-1/2 left-[3px] lg:left-1/2 border ${
@@ -130,9 +130,27 @@ export default function Experience() {
                         <span className="label text-accent">Current</span>
                       </div>
                     )}
+
+                    {/* The stack belongs to the tenure, not to the last role, so it
+                        sits under the company — which also fills the column the
+                        roles would otherwise leave empty. */}
+                    <div
+                      className={`mt-7 flex flex-wrap gap-x-5 gap-y-3 ${flip ? 'lg:justify-start' : 'lg:justify-end'}`}
+                    >
+                      {stack.map((tech) => (
+                        <span
+                          key={tech}
+                          /* Hairline-underlined labels rather than boxed chips:
+                             the page carries its layout on rules, not borders. */
+                          className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-600 border-b border-paper-400 pb-1"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* ── Roles + stack ── */}
+                  {/* ── Roles ── */}
                   <div
                     className={flip ? 'lg:order-1 lg:pr-4' : 'lg:order-2 lg:pl-4'}
                   >
@@ -166,27 +184,31 @@ export default function Experience() {
                                 {exp.period}
                               </span>
                             </div>
-                            <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
-                              {exp.description}
-                            </p>
+                            {/* Bullets replace the summary rather than joining
+                                it — carrying both says the same thing twice and
+                                costs the height of an extra paragraph per role. */}
+                            {exp.highlights?.length ? (
+                              <ul className="mt-2.5 max-w-2xl">
+                                {exp.highlights.map((h) => (
+                                  <li
+                                    key={h}
+                                    className="flex items-baseline gap-3 py-[0.2rem] text-sm font-light leading-relaxed text-ink-600"
+                                  >
+                                    <span
+                                      aria-hidden
+                                      className="w-1 h-1 rounded-full bg-ink-400 flex-shrink-0"
+                                    />
+                                    <span>{h}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="mt-2 text-sm font-light leading-relaxed text-ink-600">
+                                {exp.description}
+                              </p>
+                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Stack was already in the data and had never been shown. */}
-                    <div
-                      className="mt-7 flex flex-wrap gap-x-5 gap-y-3"
-                    >
-                      {stack.map((tech) => (
-                        <span
-                          key={tech}
-                          /* Hairline-underlined labels rather than boxed chips:
-                             the page carries its layout on rules, not borders. */
-                          className="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-ink-600 border-b border-paper-400 pb-1"
-                        >
-                          {tech}
-                        </span>
                       ))}
                     </div>
                   </div>

@@ -16,6 +16,8 @@ export interface ExperienceItem {
   period: string;
   current: boolean;
   description: string;
+  /** A few concrete outcomes. Recent roles carry more; the oldest carry none. */
+  highlights?: string[];
   technologies: string[];
 }
 
@@ -190,6 +192,11 @@ export const experiences: ExperienceItem[] = [
     period: 'Aug 2024 – Present',
     current: true,
     description: 'Lead backend development for blockchain & DeFi platforms. Built a BullMQ batch engine that cut reward processing time by 65%.',
+    highlights: [
+      'Own the backend architecture for a Web3 and cloud platform — service boundaries, API contracts, review standards and CI/CD.',
+      'Lead the team delivering it, and set the patterns the rest of the codebase follows.',
+      'Designed the reward pipeline that took generation from hours to minutes — Redis, RabbitMQ fan-out, BullMQ batch workers.',
+    ],
     technologies: ['NestJS', 'Node.js', 'React.js', 'Next.js', 'Redis', 'RabbitMQ', 'BullMQ', 'Socket.IO', 'Docker', 'MongoDB', 'PostgreSQL'],
   },
   {
@@ -200,6 +207,11 @@ export const experiences: ExperienceItem[] = [
     period: 'Mar 2023 – Aug 2024',
     current: false,
     description: 'Led a 15+ engineer team delivering eRL 2.0 and SLAASM for clients in Sweden and Singapore.',
+    highlights: [
+      'Led a 15+ engineer team across enterprise delivery for clients in Sweden and Singapore.',
+      'Set the architecture — NestJS service design, data models and integration layers over MySQL — and the standards around it.',
+      'Chose and integrated WSO2 Identity Server for single sign-on and identity across the estate.',
+    ],
     technologies: ['NestJS', 'React.js', 'TypeORM', 'MySQL', 'Keycloak', 'Docker', 'Azure'],
   },
   {
@@ -210,6 +222,10 @@ export const experiences: ExperienceItem[] = [
     period: 'Apr 2021 – Mar 2023',
     current: false,
     description: 'Drove architecture decisions and mentored developers on clean-code and SOLID principles.',
+    highlights: [
+      'Drove architecture decisions and mentored the team on clean-code and SOLID practice.',
+      'Vendor quote engine — bulk import, offer generation, server-side PDF and Excel export, status workflows.',
+    ],
     technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
   },
   {
@@ -220,6 +236,10 @@ export const experiences: ExperienceItem[] = [
     period: 'Oct 2018 – Apr 2021',
     current: false,
     description: 'Optimised the CxPulse platform, boosting efficiency by 70%.',
+    highlights: [
+      "Survey platform for Dialog Axiata, Sri Lanka's largest network — 17M+ subscribers.",
+      'High-volume background processing moved onto Laravel Queue with Redis.',
+    ],
     technologies: ['PHP Laravel', 'Node.js', 'React.js', 'Redis', 'MySQL', 'Docker'],
   },
   {
@@ -230,6 +250,9 @@ export const experiences: ExperienceItem[] = [
     period: 'Nov 2017 – Sep 2018',
     current: false,
     description: 'Built and maintained OneHRIS, a full HRIS and payroll system.',
+    highlights: [
+      'Cloud HRIS on Laravel and MySQL — employee records, attendance, leave and payroll.',
+    ],
     technologies: ['PHP Laravel', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
