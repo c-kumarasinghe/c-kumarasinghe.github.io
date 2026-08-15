@@ -251,9 +251,10 @@ export const experiences: ExperienceItem[] = [
     current: false,
     description: 'Built and maintained OneHRIS, a full HRIS and payroll system.',
     highlights: [
-      'Cloud HRIS on Laravel and MySQL — employee records, attendance, leave and payroll.',
+      'Cloud HRIS covering employee records, time and attendance, leave and payroll.',
+      'Full-stack build on PHP Laravel, Node.js and MySQL, from data model through to interface.',
     ],
-    technologies: ['PHP Laravel', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
+    technologies: ['PHP Laravel', 'Node.js', 'JavaScript', 'jQuery', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
     id: 'infoseek',
@@ -263,7 +264,11 @@ export const experiences: ExperienceItem[] = [
     period: 'Aug 2016 – Nov 2017',
     current: false,
     description: 'Built mintHRM, an open-source HRIS platform, and led its Leave Management module.',
-    technologies: ['PHP Yii', 'JavaScript', 'MySQL', 'HTML5', 'CSS3'],
+    highlights: [
+      'Core development on mintHRM, an open-source cloud HRIS covering HR and payroll.',
+      'Built on the PHP Yii framework over MySQL, and led the Leave Management module.',
+    ],
+    technologies: ['PHP Yii', 'JavaScript', 'jQuery', 'MySQL', 'HTML5', 'CSS3'],
   },
   {
     id: 'uom',
@@ -273,6 +278,10 @@ export const experiences: ExperienceItem[] = [
     period: 'Jul 2014 – Jul 2016',
     current: false,
     description: 'Built MIS systems for university financial and academic departments.',
+    highlights: [
+      'MIS and ERP systems used by government and private-sector organisations.',
+      'PHP and MySQL builds, with query and configuration tuning to hold platform reliability.',
+    ],
     technologies: ['PHP', 'JavaScript', 'MySQL', 'HTML5', 'CSS'],
   },
 ];
