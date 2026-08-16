@@ -28,6 +28,9 @@ export interface ProjectItem {
   techStack: string[];
   highlights: string[];
   featured: boolean;
+  /** Optional product shot. Projects with one get the featured treatment;
+      the rest fall back to a row, so this can be filled in over time. */
+  image?: string;
   year?: string;
   githubUrl?: string;
   demoUrl?: string;
@@ -291,6 +294,7 @@ export const projects: ProjectItem[] = [
   {
     id: 'mai-hrms',
     name: 'Mai HRMS',
+    image: '/mai-hrms.webp',
     year: '2025',
     description:
       'AI-powered HR platform with an embedded assistant that turns employee data into decisions — LLM-driven insight, retrieval and workflow automation.',
