@@ -166,8 +166,8 @@ export default function Hero() {
             className="mt-8 lg:mt-10 max-w-xl text-base sm:text-lg font-light leading-relaxed text-ink-600"
           >
             <span className="text-ink-900">&mdash; I&rsquo;m {personalInfo.name},</span> a Lead
-            Software Engineer based in Dubai. I design scalable systems, solve complex engineering
-            challenges, and lead teams to build reliable, high-impact products.
+            Software Engineer. I design scalable systems, solve complex engineering challenges, and
+            lead teams to build reliable, high-impact products.
           </motion.p>
 
           {/* ── Actions ── */}

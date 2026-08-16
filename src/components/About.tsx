@@ -16,18 +16,16 @@ export default function About() {
             </p>
             <p className="mt-5 text-base font-light leading-relaxed text-ink-600">
               Currently leading backend engineering at{' '}
-              <span className="text-ink-900">SoftBuilders</span> in Dubai &mdash; designing
-              microservice architecture, mentoring engineers and setting standards that scale.
+              <span className="text-ink-900">SoftBuilders</span> &mdash; designing microservice
+              architecture, mentoring engineers and setting standards that scale.
             </p>
             <p className="mt-5 text-base font-light leading-relaxed text-ink-600">
               Recent work centres on{' '}
               <span className="text-ink-900">AI-powered products</span> &mdash; LLM integrations,
               RAG pipelines and conversational assistants built into real production systems.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs uppercase tracking-[0.18em] text-ink-900">
-              <span>{personalInfo.title}</span>
-              <span className="w-10 h-px bg-ink-400" aria-hidden />
-              <span>{personalInfo.location}</span>
+            <div className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-ink-900">
+              {personalInfo.title}
             </div>
           </Reveal>
 
