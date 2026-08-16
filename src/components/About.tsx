@@ -1,6 +1,6 @@
-import { personalInfo, stats, education, certifications } from '../data/portfolioData';
+import { personalInfo, education, certifications } from '../data/portfolioData';
 import SectionIntro from './SectionIntro';
-import { Reveal, CountUp } from './Reveal';
+import { Reveal } from './Reveal';
 
 export default function About() {
   return (
@@ -76,28 +76,6 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Stat band */}
-        <Reveal className="mt-12 lg:mt-14">
-          <div className="grid grid-cols-2 lg:grid-cols-5 border-t border-paper-400">
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                /* Only cells that follow a divider get the left inset: every
-                   second cell in the 2-up mobile grid, everything but the
-                   first in the 4-up desktop one. */
-                className={`py-7 pr-6 border-b lg:border-b-0 border-paper-400 lg:border-r last:border-r-0 ${
-                  i % 2 === 1 ? 'pl-6' : ''
-                } ${i === 0 ? 'lg:pl-0' : 'lg:pl-8'}`}
-              >
-                <CountUp
-                  value={stat.value}
-                  className="block text-3xl sm:text-4xl font-extralight tracking-tight text-ink-900"
-                />
-                <div className="label mt-2.5">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
       </div>
     </section>
   );
