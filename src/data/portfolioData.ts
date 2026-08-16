@@ -27,9 +27,8 @@ export interface ProjectItem {
   description: string;
   techStack: string[];
   highlights: string[];
-  featured: boolean;
-  /** Optional product shot. Projects with one get the featured treatment;
-      the rest fall back to a row, so this can be filled in over time. */
+  /** A real product shot, where one exists and is publishable. Projects
+      without one fall back to a cover generated from their id. */
   image?: string;
   year?: string;
   githubUrl?: string;
@@ -305,7 +304,6 @@ export const projects: ProjectItem[] = [
       'AI-driven insight from employee behaviour patterns',
       'Automated onboarding, leave and payroll workflows',
     ],
-    featured: true,
   },
   {
     id: 'web3-rewards',
@@ -320,7 +318,6 @@ export const projects: ProjectItem[] = [
       'Smart contract–based reward distribution',
       'Multi-wallet integration (MetaMask, WalletConnect)',
     ],
-    featured: true,
   },
   {
     id: 'erl2',
@@ -335,7 +332,20 @@ export const projects: ProjectItem[] = [
       'Offline-capable progressive web architecture',
       'Automated audit trails and compliance reporting',
     ],
-    featured: true,
+  },
+  {
+    id: 'slaasm',
+    name: 'SLAASMB',
+    year: '2023',
+    description:
+      'Audit automation platform with secure identity management, streamlining government audit workflows and reporting.',
+    techStack: ['Express.js', 'TypeScript', 'React Material-UI', 'MySQL', 'WSO2'],
+    highlights: [
+      'WSO2 Identity Server integration for secure SSO',
+      'Automated audit workflow engine',
+      'Role-based access control across departments',
+      'Compliance-ready reporting and document management',
+    ],
   },
   {
     id: 'dynamicdocs',
@@ -350,7 +360,6 @@ export const projects: ProjectItem[] = [
       'Containerized microservice deployment',
       'Used by multiple enterprise clients across Scandinavia',
     ],
-    featured: true,
   },
   {
     id: 'cxpulse',
@@ -365,7 +374,6 @@ export const projects: ProjectItem[] = [
       'High-throughput data processing with Redis',
       'Custom analytics dashboards for real-time insights',
     ],
-    featured: true,
   },
   {
     id: 'doc990',
@@ -380,7 +388,20 @@ export const projects: ProjectItem[] = [
       'Automated CI/CD pipeline for zero-downtime deploys',
       'SMS & email notification integrations',
     ],
-    featured: true,
+  },
+  {
+    id: 'onehris',
+    name: 'OneHRIS / MintHRM',
+    year: '2017',
+    description:
+      'Cloud-based HR management systems with comprehensive leave, attendance, and payroll processing modules.',
+    techStack: ['PHP Laravel', 'PHP Yii', 'JavaScript', 'MySQL', 'HTML5'],
+    highlights: [
+      'End-to-end payroll calculation engine',
+      'Biometric attendance integration',
+      'Multi-company and multi-currency support',
+      'Open-source version adopted globally',
+    ],
   },
 ];
 
