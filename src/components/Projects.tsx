@@ -20,15 +20,15 @@ export default function Projects() {
                 {/* Title */}
                 <div className="md:col-span-5">
                   <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-[0.688rem] text-ink-9000">
+                    <span className="font-mono text-[0.688rem] text-ink-500">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-light tracking-tight text-ink-900">
                       {project.name}
                     </h3>
-                    <span className="font-mono text-[0.688rem] text-ink-9000">{project.year}</span>
+                    <span className="font-mono text-[0.688rem] text-ink-500">{project.year}</span>
                   </div>
-                  <p className="mt-3 md:ml-8 text-sm font-light leading-relaxed text-ink-9000 max-w-sm">
+                  <p className="mt-3 md:ml-8 text-sm font-light leading-relaxed text-ink-500 max-w-sm">
                     {project.description}
                   </p>
                 </div>

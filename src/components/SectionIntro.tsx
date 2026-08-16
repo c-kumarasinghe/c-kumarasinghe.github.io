@@ -20,7 +20,7 @@ export default function SectionIntro({
     <div className={className}>
       <Reveal>
         <div className="flex items-baseline gap-4">
-          <span className={`font-mono text-[0.688rem] ${dark ? 'text-ink-9000' : 'text-accent'}`}>
+          <span className={`font-mono text-[0.688rem] ${dark ? 'text-ink-500' : 'text-accent'}`}>
             ({index})
           </span>
           <span className="label">{label}</span>

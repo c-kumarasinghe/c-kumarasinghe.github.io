@@ -37,7 +37,7 @@ export default function SpeakingBand() {
 
       <div className="relative z-10 h-full shell flex items-end pb-12 lg:pb-16">
         <div className="max-w-2xl">
-          <div className="label text-ink-9000 mb-4">Leadership &amp; speaking</div>
+          <div className="label text-ink-500 mb-4">Leadership &amp; speaking</div>
           <p className="text-display font-extralight text-ink-900">
             <SplitText text="Good architecture is only half of it — the rest is the team." />
           </p>
