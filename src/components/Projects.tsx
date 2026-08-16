@@ -24,23 +24,27 @@ export default function Projects() {
                   row of every card in a row to the same baseline, so the grid
                   keeps a horizontal read despite uneven copy. */}
               <article className="group h-full flex flex-col">
-                <div className="aspect-[16/9] overflow-hidden rounded-lg ring-1 ring-white/10 bg-paper-300">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={`${project.name} interface`}
-                      className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                      loading="lazy"
-                      width={1800}
-                      height={857}
-                    />
-                  ) : (
-                    <ProjectCover id={project.id} />
-                  )}
+                <div className="aspect-[16/9] overflow-hidden rounded-lg ring-1 ring-white/10 bg-paper-300 transition-shadow duration-500 group-hover:ring-white/20">
+                  {/* Pushing in slightly on hover reads as looking closer at
+                      the schematic, which is all there is to look at here. */}
+                  <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={`${project.name} interface`}
+                        className="w-full h-full object-cover object-top"
+                        loading="lazy"
+                        width={1800}
+                        height={857}
+                      />
+                    ) : (
+                      <ProjectCover id={project.id} />
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-4 flex items-baseline gap-3">
-                  <span className="font-mono text-[0.688rem] text-ink-500">
+                  <span className="font-mono text-[0.688rem] text-ink-500 transition-colors duration-300 group-hover:text-accent">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <h3 className="text-lg sm:text-xl font-light tracking-tight text-ink-900">
