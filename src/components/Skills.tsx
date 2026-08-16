@@ -16,14 +16,14 @@ export default function Skills() {
           {skillCategories.map((category, i) => (
             <Reveal key={category.id} delay={i * 0.035}>
               <div className="grid md:grid-cols-12 gap-y-3 md:gap-x-8 py-4 border-t border-white/15 last:border-b">
-                <h3 className="md:col-span-3 font-mono text-[0.688rem] uppercase tracking-[0.14em] text-ink-900 md:pt-1">
+                <h3 className="md:col-span-3 text-sm font-normal tracking-tight text-ink-900 md:pt-0.5">
                   {category.label}
                 </h3>
-                <div className="md:col-span-9 flex flex-wrap gap-x-3 gap-y-3">
+                <div className="md:col-span-9 flex flex-wrap gap-x-4 gap-y-3">
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="font-mono text-[0.688rem] uppercase tracking-[0.1em] text-ink-700 border-b border-white/15 pb-1 transition-colors duration-300 hover:text-ink-900 hover:border-ink-400"
+                      className="text-sm font-light tracking-tight text-ink-700 border-b border-white/15 pb-1 transition-colors duration-300 hover:text-ink-900 hover:border-ink-400"
                     >
                       {skill}
                     </span>
