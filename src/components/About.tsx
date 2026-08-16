@@ -22,7 +22,7 @@ export default function About() {
             <p className="mt-5 text-base font-light leading-relaxed text-ink-600">
               Recent work centres on{' '}
               <span className="text-ink-900">AI-powered products</span> &mdash; LLM integrations,
-              RAG pipelines and conversational assistants built into real production systems.
+              multimodal generation and automated workflows built into real production systems.
             </p>
             <div className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-ink-900">
               {personalInfo.title}

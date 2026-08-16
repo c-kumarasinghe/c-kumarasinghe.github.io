@@ -93,9 +93,9 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       'OpenAI API',
       'LLM Integration',
-      'RAG Pipelines',
-      'Embeddings & Vector Search',
       'AI Assistants',
+      'Text-to-Video',
+      'Text-to-Audio',
       'Prompt Engineering',
       'Intelligent Automation',
     ],
