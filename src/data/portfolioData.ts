@@ -295,13 +295,13 @@ export const projects: ProjectItem[] = [
     name: 'Mai HRMS',
     year: '2025',
     description:
-      'AI-powered HR platform with an embedded assistant that turns employee data into decisions — LLM-driven insight, retrieval and workflow automation.',
-    techStack: ['OpenAI API', 'RAG', 'NestJS', 'Next.js', 'MongoDB', 'Redis', 'PostgreSQL', 'Docker'],
+      'HR platform with the AI layer built end to end — an LLM assistant, text-to-video and text-to-audio generation, and automated workflows.',
+    techStack: ['OpenAI API', 'NestJS', 'Next.js', 'MongoDB', 'Redis', 'PostgreSQL', 'Docker'],
     highlights: [
-      'Conversational AI assistant for employee and HR queries',
-      'RAG pipeline over policy and employee data for grounded answers',
-      'AI-driven insight from employee behaviour patterns',
-      'Automated onboarding, leave and payroll workflows',
+      'Built the AI platform end to end — assistant, generation and automation',
+      'LLM assistant for employee and HR queries',
+      'Text-to-video and text-to-audio generation in-product',
+      'AI-automated workflows across onboarding, leave and payroll',
     ],
   },
   {

@@ -10,10 +10,10 @@ import { useMemo } from 'react';
    panel changes, and it changes to the project's own subject.
 
    The motion follows the same rule. The frame fades up identically everywhere,
-   then each panel animates the way its subject actually behaves: the assistant
-   answers and cites, the chain settles a payout, the seal stamps down, the
-   pulse traces itself, a slot gets taken. Nothing here is a generic reveal
-   applied eight times.
+   then each panel animates the way its subject actually behaves: a prompt
+   generates, the chain settles a payout, the seal stamps down, the pulse
+   traces itself, a slot gets taken. Nothing here is a generic reveal applied
+   eight times.
 
    Motion is driven by variants rather than per-element whileInView, so the one
    intersection observer on the <svg> sequences the whole drawing. */
@@ -110,39 +110,77 @@ function Head() {
 
 // ── The main panels ────────────────────────────────────────
 
-/** Mai HRMS — a question, a grounded answer, then the records it cited.
- *  Animates as a conversation: the turns arrive in order, and the citations
- *  surface underneath after the answer, which is what RAG actually does. */
+/** Mai HRMS — one prompt, three kinds of output, then the workflow it kicks
+ *  off. Animates in that order: the ask lands, text, video and audio generate
+ *  one after another, and the automation runs last. */
 function AssistantPanel() {
+  const outs = [110, 200, 290];
+
   return (
-    <motion.g variants={seq(0.22)}>
+    <motion.g variants={seq(0.2)}>
       <Head />
 
+      {/* the prompt */}
       <motion.g variants={RISE}>
-        <rect x="212" y="180" width="160" height="30" rx="6" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
-        <line x1="226" y1="195" x2="352" y2="195" stroke={LINE} strokeWidth="1.5" opacity="0.8" />
-      </motion.g>
-
-      <motion.g variants={RISE}>
-        <rect x="110" y="220" width="172" height="46" rx="6" fill={GROUND} stroke={ACC} strokeWidth="2" />
+        <rect x="110" y="178" width="262" height="26" rx="13" fill={GROUND} stroke={ACC} strokeWidth="2" />
         <path
-          d="M127 228 l2.6 5.4 l5.4 2.6 l-5.4 2.6 l-2.6 5.4 l-2.6 -5.4 l-5.4 -2.6 l5.4 -2.6 z"
+          d="M127 185 l2.4 5 l5 2.4 l-5 2.4 l-2.4 5 l-2.4 -5 l-5 -2.4 l5 -2.4 z"
           fill={ACC}
         />
-        <motion.line x1="144" y1="236" x2="268" y2="236" stroke={ACC} strokeWidth="1.5" opacity="0.85" variants={DRAW} />
-        <motion.line x1="144" y1="252" x2="238" y2="252" stroke={ACC} strokeWidth="1.5" opacity="0.55" variants={DRAW} />
+        <motion.line x1="144" y1="191" x2="330" y2="191" stroke={ACC} strokeWidth="1.5" opacity="0.5" variants={DRAW} />
       </motion.g>
 
-      {/* citations surfacing after the answer */}
-      <motion.g variants={seq(0.1, 0)}>
-        {[110, 148, 186].map((x) => (
+      {/* text, video, audio — generated one after another */}
+      <motion.g variants={seq(0.14, 0)}>
+        {outs.map((x, i) => (
           <motion.g key={x} variants={RISE}>
-            <line x1={x + 14} y1="278" x2={x + 14} y2="266" stroke={LINE} strokeWidth="1.4" strokeDasharray="3 3" />
-            <rect x={x} y="280" width="28" height="24" rx="2" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
-            <line x1={x + 6} y1="288" x2={x + 22} y2="288" stroke={RULE} strokeWidth="1.4" />
-            <line x1={x + 6} y1="295" x2={x + 17} y2="295" stroke={RULE} strokeWidth="1.4" />
+            <rect x={x} y="214" width="82" height="64" rx="3" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
+            {i === 0 && <Lines x={x + 12} y={234} widths={[58, 44, 58]} gap={14} />}
+            {i === 1 && (
+              <>
+                <rect x={x + 12} y="228" width="58" height="36" rx="2" fill="none" stroke={RULE} strokeWidth="1.4" />
+                <path d={`M${x + 36} 238 l14 8 l-14 8 z`} fill={EDGE} />
+              </>
+            )}
+            {i === 2 &&
+              [0, 1, 2, 3, 4, 5, 6].map((k) => {
+                const h = 6 + Math.abs(Math.sin(k * 1.1)) * 20;
+                return (
+                  <line
+                    key={k}
+                    x1={x + 16 + k * 8.5}
+                    y1={246 - h / 2}
+                    x2={x + 16 + k * 8.5}
+                    y2={246 + h / 2}
+                    stroke={EDGE}
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                  />
+                );
+              })}
           </motion.g>
         ))}
+      </motion.g>
+
+      {/* the automation those outputs feed */}
+      <motion.g variants={seq(0.09, 0)}>
+        {[110, 182, 254].map((x, i) => (
+          <motion.g key={x} variants={FADE}>
+            <rect x={x} y="292" width="52" height="18" rx="9" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
+            {i < 2 && (
+              <path
+                d={`M${x + 56} 301 h 10 m -4 -3.5 l 4 3.5 l -4 3.5`}
+                fill="none"
+                stroke={LINE}
+                strokeWidth="1.4"
+              />
+            )}
+          </motion.g>
+        ))}
+        <motion.g variants={FADE}>
+          <circle cx="342" cy="301" r="9" fill="none" stroke={ACC} strokeWidth="1.8" />
+          <path d={tick(337, 300)} fill="none" stroke={ACC} strokeWidth="1.8" strokeLinecap="round" />
+        </motion.g>
       </motion.g>
     </motion.g>
   );
