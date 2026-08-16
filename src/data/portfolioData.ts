@@ -293,7 +293,6 @@ export const projects: ProjectItem[] = [
   {
     id: 'mai-hrms',
     name: 'Mai HRMS',
-    image: '/mai-hrms.webp',
     year: '2025',
     description:
       'AI-powered HR platform with an embedded assistant that turns employee data into decisions — LLM-driven insight, retrieval and workflow automation.',

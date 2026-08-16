@@ -65,6 +65,38 @@ function Lines({
 // ── The main panel, one per project ────────────────────────
 // Each draws inside MAIN with ~16px of padding. Exactly one accent apiece.
 
+/** Mai HRMS — the embedded assistant, answering off retrieved records. */
+function AssistantPanel() {
+  return (
+    <>
+      <Lines x={110} y={162} widths={[74]} width={2} stroke={EDGE} />
+
+      {/* the question */}
+      <rect x="212" y="180" width="160" height="30" rx="6" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
+      <line x1="226" y1="195" x2="352" y2="195" stroke={LINE} strokeWidth="1.5" opacity="0.8" />
+
+      {/* the grounded answer */}
+      <rect x="110" y="220" width="172" height="46" rx="6" fill={GROUND} stroke={ACC} strokeWidth="2" />
+      <path
+        d="M127 228 l2.6 5.4 l5.4 2.6 l-5.4 2.6 l-2.6 5.4 l-2.6 -5.4 l-5.4 -2.6 l5.4 -2.6 z"
+        fill={ACC}
+      />
+      <line x1="144" y1="236" x2="268" y2="236" stroke={ACC} strokeWidth="1.5" opacity="0.85" />
+      <line x1="144" y1="252" x2="238" y2="252" stroke={ACC} strokeWidth="1.5" opacity="0.55" />
+
+      {/* the records it was grounded on */}
+      {[110, 148, 186].map((x) => (
+        <g key={x}>
+          <line x1={x + 14} y1="278" x2={x + 14} y2="266" stroke={LINE} strokeWidth="1.4" strokeDasharray="3 3" />
+          <rect x={x} y="280" width="28" height="24" rx="2" fill={GROUND} stroke={LINE} strokeWidth="1.5" />
+          <line x1={x + 6} y1="288" x2={x + 22} y2="288" stroke={RULE} strokeWidth="1.4" />
+          <line x1={x + 6} y1="295" x2={x + 17} y2="295" stroke={RULE} strokeWidth="1.4" />
+        </g>
+      ))}
+    </>
+  );
+}
+
 /** Web3 rewards — the block chain, and the payout landing on one of them. */
 function ChainPanel() {
   const xs = [116, 178, 240, 302];
@@ -278,6 +310,7 @@ function PayrollPanel() {
 }
 
 const PANELS: Record<string, () => React.JSX.Element> = {
+  'mai-hrms': AssistantPanel,
   'web3-rewards': ChainPanel,
   erl2: LicencePanel,
   slaasm: AuditPanel,
