@@ -27,7 +27,7 @@ export default function SpeakingBand() {
         <img
           src="/speaking.jpg"
           alt="Chathuranga Kumarasinghe speaking at Cinnamon Grand, Colombo"
-          className="w-full h-full object-cover portrait-band"
+          className="w-full h-full object-cover portrait"
           loading="lazy"
         />
       </motion.div>

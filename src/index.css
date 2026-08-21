@@ -124,11 +124,6 @@
   .portrait {
     filter: grayscale(1) contrast(1.06) brightness(0.94);
   }
-  /* Same treatment, opened up. For photos that sit under a scrim and would
-     otherwise read as murk rather than as a picture of something. */
-  .portrait-band {
-    filter: grayscale(1) contrast(1.16) brightness(1.2);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
