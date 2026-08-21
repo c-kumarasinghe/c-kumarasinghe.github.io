@@ -35,7 +35,7 @@ export default function SpeakingBand() {
       {/* Scrim only has to carry the caption, which sits at the bottom — so it
           holds full strength there and clears entirely off the top, instead of
           washing the whole frame. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-paper-100/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-paper-100/20 to-transparent" />
 
       <div className="relative z-10 h-full shell flex items-end pb-12 lg:pb-16">
         <div className="max-w-2xl">
