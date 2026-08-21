@@ -32,20 +32,8 @@ export default function SpeakingBand() {
         />
       </motion.div>
 
-      {/* Scrim only has to carry the caption, which sits at the bottom — so it
-          holds full strength there and clears entirely off the top, instead of
-          washing the whole frame. */}
-      <div
-        className="absolute inset-0"
-        /* Written out rather than composed from gradient utilities: the stop
-           positions are the whole point here, and the utility form silently
-           dropped the middle stop, which left a linear ramp over the entire
-           frame — darker than what it replaced. */
-        style={{
-          backgroundImage:
-            'linear-gradient(to top, #08080B 0%, rgba(8, 8, 11, 0.45) 16%, rgba(8, 8, 11, 0) 62%)',
-        }}
-      />
+      {/* Scrim keeps the caption legible over a busy frame */}
+      <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-paper-100/45 to-paper-100/10" />
 
       <div className="relative z-10 h-full shell flex items-end pb-12 lg:pb-16">
         <div className="max-w-2xl">
