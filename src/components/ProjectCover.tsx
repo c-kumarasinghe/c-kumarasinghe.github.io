@@ -198,7 +198,7 @@ function ChainPanel() {
 
       {xs.map((x, i) => (
         <motion.g key={x} variants={FADE}>
-          {i > 0 && <line x1={x - 14} y1="250" x2={x} y2="250" stroke={LINE} strokeWidth="1.5" />}
+          {i > 0 && <line x1={x - 14} y1="250" x2={x} y2="250" stroke={EDGE} strokeWidth="1.7" />}
           <rect
             x={x}
             y="226"
@@ -206,8 +206,8 @@ function ChainPanel() {
             height="48"
             rx="3"
             fill={GROUND}
-            stroke={i === hot ? ACC : LINE}
-            strokeWidth={i === hot ? 2 : 1.5}
+            stroke={i === hot ? ACC : EDGE}
+            strokeWidth={i === hot ? 2.2 : 1.7}
           />
           <rect
             x={x + 13}
@@ -216,8 +216,8 @@ function ChainPanel() {
             height="22"
             rx="1.5"
             fill="none"
-            stroke={i === hot ? ACC : RULE}
-            strokeWidth="1.4"
+            stroke={i === hot ? ACC : LINE}
+            strokeWidth="1.5"
           />
         </motion.g>
       ))}
@@ -232,7 +232,7 @@ function ChainPanel() {
         <line x1="326" y1="204" x2="326" y2="220" stroke={ACC} strokeWidth="1.5" strokeDasharray="3 4" />
         <path d="M321 214 l5 6 l5 -6" fill="none" stroke={ACC} strokeWidth="1.6" />
         <circle cx="326" cy="190" r="15" fill={GROUND} stroke={ACC} strokeWidth="2" />
-        <circle cx="326" cy="190" r="7" fill="none" stroke={ACC} strokeWidth="1.4" opacity="0.7" />
+        <circle cx="326" cy="190" r="7" fill="none" stroke={ACC} strokeWidth="1.6" opacity="0.85" />
       </motion.g>
     </motion.g>
   );
