@@ -19,7 +19,21 @@ export default function SpeakingBand() {
   const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
   return (
-    <section ref={ref} className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden bg-paper-100">
+    <section
+      ref={ref}
+      className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden bg-paper-200"
+      /* The top edge dissolves into the page rather than being covered by a
+         matching swatch. Masking the section rather than stacking an overlay on
+         it matters: the section lands on a fractional device pixel at ratios
+         like 1.5, and a separate layer antialiases against the clip edge
+         differently than the image does, leaving one bright row of ceiling
+         along the seam. With the alpha on the section itself there is no second
+         layer to misalign. */
+      style={{
+        maskImage: 'linear-gradient(to bottom, transparent 0%, black 32%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 32%)',
+      }}
+    >
       <motion.div
         style={reduced ? undefined : { y }}
         className="absolute inset-x-0 -top-[10%] h-[120%]"
