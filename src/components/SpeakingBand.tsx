@@ -27,13 +27,15 @@ export default function SpeakingBand() {
         <img
           src="/speaking.jpg"
           alt="Chathuranga Kumarasinghe speaking at Cinnamon Grand, Colombo"
-          className="w-full h-full object-cover portrait"
+          className="w-full h-full object-cover portrait-band"
           loading="lazy"
         />
       </motion.div>
 
-      {/* Scrim keeps the caption legible over a busy frame */}
-      <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-paper-100/70 to-paper-100/30" />
+      {/* Scrim only has to carry the caption, which sits at the bottom — so it
+          holds full strength there and clears entirely off the top, instead of
+          washing the whole frame. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-paper-100 via-paper-100/35 to-transparent" />
 
       <div className="relative z-10 h-full shell flex items-end pb-12 lg:pb-16">
         <div className="max-w-2xl">
